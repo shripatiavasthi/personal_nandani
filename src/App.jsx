@@ -1,5 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
+import growthArrow from './assets/arrow.png'
+import bannerDesktop from './assets/banners/banner-desktop.jpg'
+import bannerMobileTablet from './assets/banners/banner-mobile-tablet.jpg'
+import gisProject from './assets/work/gis.png'
+import panlexProject from './assets/work/panlex.png'
 
 const services = [
   ['Branding', 'Bold identities built to make ambitious brands impossible to ignore.'],
@@ -22,7 +27,43 @@ function Logo() {
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const ctaRef = useRef(null)
   const scrollToContact = () => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })
+
+  useEffect(() => {
+    const section = ctaRef.current
+    if (!section) return
+
+    const topText = section.querySelector('.marquee-top')
+    const bottomText = section.querySelector('.marquee-bottom')
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    let animationFrame
+
+    const updateMarquees = () => {
+      const rect = section.getBoundingClientRect()
+      const travelArea = window.innerHeight + rect.height
+      const progress = Math.min(Math.max((window.innerHeight - rect.top) / travelArea, 0), 1)
+      const offset = reduceMotion ? 0 : (progress - 0.5) * 360
+
+      topText.style.setProperty('--marquee-shift', `${offset}px`)
+      bottomText.style.setProperty('--marquee-shift', `${-offset}px`)
+      animationFrame = undefined
+    }
+
+    const requestUpdate = () => {
+      if (!animationFrame) animationFrame = requestAnimationFrame(updateMarquees)
+    }
+
+    updateMarquees()
+    window.addEventListener('scroll', requestUpdate, { passive: true })
+    window.addEventListener('resize', requestUpdate)
+
+    return () => {
+      window.removeEventListener('scroll', requestUpdate)
+      window.removeEventListener('resize', requestUpdate)
+      if (animationFrame) cancelAnimationFrame(animationFrame)
+    }
+  }, [])
 
   return (
     <main id="top">
@@ -36,14 +77,17 @@ function App() {
       </header>
 
       <section className="hero-section">
-        <div className="circuit-lines" />
+        <picture className="hero-banner">
+          <source media="(max-width: 1024px)" srcSet={bannerMobileTablet} />
+          <img src={bannerDesktop} alt="" aria-hidden="true" />
+        </picture>
         <div className="hero-copy">
           <p>Fuelling your</p>
           <h1>Online Growth</h1>
           <h2>through smart digital solutions</h2>
           <button className="pill" onClick={scrollToContact}>Schedule a call</button>
         </div>
-        <div className="growth-arrow" aria-hidden="true" />
+        <img className="growth-arrow" src={growthArrow} alt="" aria-hidden="true" />
       </section>
 
       <section className="about wrap" id="about">
@@ -57,7 +101,7 @@ function App() {
         <div className="wrap">
           <h2 className="section-title">Our Services</h2>
           <div className="service-grid">
-            {services.map(([title, text], index) => <article className={index === 2 ? 'featured' : ''} key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{text}</p><b>↗</b></article>)}
+            {services.map(([title, text]) => <article key={title}><h3>{title}</h3><p>{text}</p></article>)}
           </div>
         </div>
       </section>
@@ -66,8 +110,8 @@ function App() {
         <div className="wrap">
           <h2 className="section-title light">See Our Work</h2>
           <div className="work-grid">
-            <a href="#contact" className="project project-one"><span>G↑S<small>BRAND & DIGITAL</small></span><strong>View project ↗</strong></a>
-            <a href="#contact" className="project project-two"><span>Plan | Execute<small>ALL DAY FINE</small></span><strong>View project ↗</strong></a>
+            <a href="#contact" className="project" aria-label="View the Global Infra Solutions project"><img src={gisProject} alt="Global Infra Solutions interior project" /></a>
+            <a href="#contact" className="project" aria-label="View the Panlex LLP project"><img src={panlexProject} alt="Panlex LLP law firm project" /></a>
           </div>
         </div>
       </section>
@@ -79,8 +123,9 @@ function App() {
         </div>
       </section>
 
-      <section className="cta">
-        <div className="marquee" aria-hidden="true">Make It Happen Make It Happen</div>
+      <section className="cta" ref={ctaRef}>
+        <div className="marquee marquee-top" aria-hidden="true">Make It Happen Make It Happen Make It Happen Make It Happen</div>
+        <div className="marquee marquee-bottom" aria-hidden="true">Make It Happen Make It Happen Make It Happen Make It Happen</div>
         <h2>Make It <em>Happen</em></h2>
         <button className="pill" onClick={scrollToContact}>Schedule a call</button>
       </section>
