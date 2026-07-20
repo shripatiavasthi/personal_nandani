@@ -5,6 +5,8 @@ import bannerDesktop from './assets/banners/banner-desktop.jpg'
 import bannerMobileTablet from './assets/banners/banner-mobile-tablet.jpg'
 import gisProject from './assets/work/gis.png'
 import panlexProject from './assets/work/panlex.png'
+import revenueGrowthLogo from './assets/r-g-logo.png'
+import nandaniPortrait from './assets/nandani.jpg'
 
 const services = [
   ['Branding', 'Bold identities built to make ambitious brands impossible to ignore.'],
@@ -22,13 +24,61 @@ const articles = [
 ]
 
 function Logo() {
-  return <a className="logo" href="#top" aria-label="Revenue Growth home"><span>Re</span><i>v</i><span>enue</span><small>GROWTH<br />LET'S MAKE IT REAL</small></a>
+  return <a className="logo" href="/" aria-label="Revenue Growth home"><img src={revenueGrowthLogo} alt="Revenue Growth" /></a>
 }
 
-function App() {
+function SiteHeader({ onStartProject }) {
   const [menuOpen, setMenuOpen] = useState(false)
+
+  return (
+    <header className="nav-shell">
+      <Logo />
+      <button className="menu-button" aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>☰</button>
+      <nav className={menuOpen ? 'open' : ''} onClick={() => setMenuOpen(false)}>
+        <a href="/#work">Work</a><a href="/#clients">Clients</a><a href="/#services">Services</a><a href="/about">About</a><a href="/#insights">Blog</a>
+        <button className="pill" onClick={onStartProject}>Start a project</button>
+      </nav>
+    </header>
+  )
+}
+
+function SiteFooter() {
+  return (
+    <footer className="footer" id="contact">
+      <div className="wrap footer-grid"><div><h2>Let’s Talk</h2><a href="mailto:revenue@gmail.com">revenue@gmail.com</a><a href="tel:+919999005697">+91 99990 05697</a><div className="socials"><a href="#top">ig</a><a href="#top">Be</a><a href="#top">in</a><a href="#top">𝕏</a></div></div>
+        <div className="footer-links"><a href="/#work">Work</a><a href="/about">About</a><a href="/#clients">Clients</a><a href="/#insights">Blog</a><a href="/#services">Services</a><a href="mailto:revenue@gmail.com">Contact</a><a href="/#services">Industries</a></div>
+      </div><div className="wrap copyright">© 2026 Revenue Growth <span>Built for what’s next.</span></div>
+    </footer>
+  )
+}
+
+function HeroSection({ onScheduleCall, about = false }) {
+  return (
+    <section className="hero-section">
+      <picture className="hero-banner">
+        <source media="(max-width: 1024px)" srcSet={bannerMobileTablet} />
+        <img src={bannerDesktop} alt="" aria-hidden="true" />
+      </picture>
+      {about ? (
+        <div className="hero-copy about-hero-copy">
+          <h1>About Us</h1>
+          <h2>We transform brands through<br />elevated digital experiences</h2>
+        </div>
+      ) : (
+        <div className="hero-copy">
+          <p>Fuelling your</p>
+          <h1>Online Growth</h1>
+          <h2>through smart digital solutions</h2>
+          <button className="pill" onClick={onScheduleCall}>Schedule a call</button>
+        </div>
+      )}
+      <img className="growth-arrow" src={growthArrow} alt="" aria-hidden="true" />
+    </section>
+  )
+}
+
+function MakeItHappen({ onScheduleCall }) {
   const ctaRef = useRef(null)
-  const scrollToContact = () => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })
 
   useEffect(() => {
     const section = ctaRef.current
@@ -66,29 +116,23 @@ function App() {
   }, [])
 
   return (
-    <main id="top">
-      <header className="nav-shell">
-        <Logo />
-        <button className="menu-button" aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>☰</button>
-        <nav className={menuOpen ? 'open' : ''} onClick={() => setMenuOpen(false)}>
-          <a href="#work">Work</a><a href="#clients">Clients</a><a href="#services">Services</a><a href="#about">About</a><a href="#insights">Blog</a>
-          <button className="pill" onClick={scrollToContact}>Start a project</button>
-        </nav>
-      </header>
+    <section className="cta" ref={ctaRef}>
+      <div className="marquee marquee-top" aria-hidden="true">Make It Happen Make It Happen Make It Happen Make It Happen</div>
+      <div className="marquee marquee-bottom" aria-hidden="true">Make It Happen Make It Happen Make It Happen Make It Happen</div>
+      <h2>Make It <em>Happen</em></h2>
+      <button className="pill" onClick={onScheduleCall}>Schedule a call</button>
+    </section>
+  )
+}
 
-      <section className="hero-section">
-        <picture className="hero-banner">
-          <source media="(max-width: 1024px)" srcSet={bannerMobileTablet} />
-          <img src={bannerDesktop} alt="" aria-hidden="true" />
-        </picture>
-        <div className="hero-copy">
-          <p>Fuelling your</p>
-          <h1>Online Growth</h1>
-          <h2>through smart digital solutions</h2>
-          <button className="pill" onClick={scrollToContact}>Schedule a call</button>
-        </div>
-        <img className="growth-arrow" src={growthArrow} alt="" aria-hidden="true" />
-      </section>
+function App() {
+  const scrollToContact = () => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })
+
+  return (
+    <main id="top">
+      <SiteHeader onStartProject={scrollToContact} />
+
+      <HeroSection onScheduleCall={scrollToContact} />
 
       <section className="about wrap" id="about">
         <div className="about-image">
@@ -123,12 +167,7 @@ function App() {
         </div>
       </section>
 
-      <section className="cta" ref={ctaRef}>
-        <div className="marquee marquee-top" aria-hidden="true">Make It Happen Make It Happen Make It Happen Make It Happen</div>
-        <div className="marquee marquee-bottom" aria-hidden="true">Make It Happen Make It Happen Make It Happen Make It Happen</div>
-        <h2>Make It <em>Happen</em></h2>
-        <button className="pill" onClick={scrollToContact}>Schedule a call</button>
-      </section>
+      <MakeItHappen onScheduleCall={scrollToContact} />
 
       <section className="insights" id="insights">
         <div className="wrap"><h2 className="section-title light centered">News + Insights</h2><div className="article-grid">
@@ -136,13 +175,48 @@ function App() {
         </div></div>
       </section>
 
-      <footer className="footer" id="contact">
-        <div className="wrap footer-grid"><div><h2>Let’s Talk</h2><a href="mailto:revenue@gmail.com">revenue@gmail.com</a><a href="tel:+919810800876">+ 91–9810800876</a><div className="socials"><a href="#top">ig</a><a href="#top">Be</a><a href="#top">in</a><a href="#top">𝕏</a></div></div>
-          <div className="footer-links"><a href="#work">Work</a><a href="#about">About</a><a href="#clients">Clients</a><a href="#insights">Blog</a><a href="#services">Services</a><a href="mailto:revenue@gmail.com">Contact</a><a href="#services">Industries</a></div>
-        </div><div className="wrap copyright">© 2026 Revenue Growth <span>Built for what’s next.</span></div>
-      </footer>
+      <SiteFooter />
     </main>
   )
 }
 
-export default App
+const team = [
+  [nandaniPortrait, 'Nandani'],
+  ['https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=700&q=85', 'Becky Naylor'],
+  ['https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=700&q=85', 'Becky Naylor'],
+  ['https://images.unsplash.com/photo-1568602471122-7832951cc4c5?auto=format&fit=crop&w=700&q=85', 'Becky Naylor'],
+]
+
+const studioImages = [
+  'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=700&q=85',
+  'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=700&q=85',
+  'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=700&q=85',
+  'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=700&q=85',
+  'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=700&q=85',
+]
+
+function AboutPage() {
+  const goToContact = () => { window.location.href = '/#contact' }
+
+  return (
+    <main id="top" className="about-page">
+      <SiteHeader onStartProject={goToContact} />
+
+      <HeroSection onScheduleCall={goToContact} about />
+
+      <section className="team-section"><div className="wrap"><p className="team-intro-copy">For over 20 years, since 2003, we’ve been at the forefront of digital marketing, helping businesses navigate the ever-changing online landscape without losing their way – or their sanity. Based in the heart of Ripon, North Yorkshire, we’re proud to be small-town locals with big-time impact, working with companies across the UK and internationally delivering innovative strategies tailored to the unique needs of each client.</p><h2 className="about-heading">Meet the team</h2><div className="team-grid">{team.map(([image, name], index) => <article key={`${name}-${index}`}><img src={image} alt={`${name}, Revenue Growth team member`} /><div><h3>{name}</h3></div></article>)}</div></div></section>
+
+      <MakeItHappen onScheduleCall={goToContact} />
+
+      <section className="studio wrap"><div className="studio-gallery">{studioImages.map((image, index) => <a key={image} href={image} target="_blank" rel="noreferrer" aria-label={`View workspace image ${index + 1}`}><img src={image} alt={index === 0 ? 'Revenue Growth team workspace' : ''} /></a>)}</div></section>
+
+      <SiteFooter />
+    </main>
+  )
+}
+
+function Root() {
+  return window.location.pathname.replace(/\/+$/, '') === '/about' ? <AboutPage /> : <App />
+}
+
+export default Root
