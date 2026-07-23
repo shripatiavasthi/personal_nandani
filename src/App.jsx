@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import growthArrow from './assets/arrow.png'
-import bannerDesktop from './assets/banners/banner-desktop.jpg'
 import bannerMobileTablet from './assets/banners/banner-mobile-tablet.jpg'
 import gisProject from './assets/work/gis.png'
 import panlexProject from './assets/work/panlex.png'
 import revenueGrowthLogo from './assets/r-g-logo.png'
 import nandaniPortrait from './assets/nandani.jpg'
+import transformativeWork from './assets/transformative-work.png'
 
 const services = [
   ['Branding', 'Bold identities built to make ambitious brands impossible to ignore.'],
@@ -54,11 +54,10 @@ function SiteFooter() {
 
 function HeroSection({ onScheduleCall, about = false }) {
   return (
-    <section className="hero-section">
-      <picture className="hero-banner">
-        <source media="(max-width: 1024px)" srcSet={bannerMobileTablet} />
-        <img src={bannerDesktop} alt="" aria-hidden="true" />
-      </picture>
+      <section className={`hero-section ${about ? 'about-page-hero' : 'home-hero'}`}>
+        <picture className="hero-banner">
+          <img src={bannerMobileTablet} alt="" aria-hidden="true" />
+        </picture>
       {about ? (
         <div className="hero-copy about-hero-copy">
           <h1>About Us</h1>
@@ -136,9 +135,9 @@ function App() {
 
       <section className="about wrap" id="about">
         <div className="about-image">
-          <img src="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?auto=format&fit=crop&w=900&q=85" alt="Creative professional working at a laptop" />
+          <img src={transformativeWork} alt="Creative professional working at a laptop" />
         </div>
-        <p>We build transformative digital experiences for the world's leading brands by blending <strong>AI, design, and technology.</strong></p>
+        <p>We build transformative digital experiences for the world's leading brands by blending AI, design, and technology.</p>
       </section>
 
       <section className="services-section" id="services">
