@@ -6,80 +6,15 @@ import gisProject from './assets/work/gis.png'
 import panlexProject from './assets/work/panlex.png'
 import revenueGrowthLogo from './assets/r-g-logo.png'
 import nandaniPortrait from './assets/nandani.jpg'
-import shripatiPortrait from './assets/shripati-avasthi.png'
 import transformativeWork from './assets/transformative-work.png'
 
 const services = [
-  {
-    number: '01',
-    name: 'Growth Marketing',
-    headline: 'Accelerate Growth with Performance-Driven Marketing',
-    description: 'Growth marketing goes beyond traditional advertising. It focuses on acquiring, engaging, and retaining customers using measurable, data-backed strategies that continuously improve business performance. Instead of running isolated campaigns, we create an integrated marketing ecosystem that helps your business grow consistently across every digital touchpoint.',
-    offers: ['Meta Ads (Facebook & Instagram)', 'Google Ads', 'Search Engine Marketing (SEM)', 'Performance Marketing Campaigns', 'Lead Generation Campaigns', 'Marketing Strategy & Analytics', 'Campaign Optimization', 'Customer Acquisition Strategy'],
-  },
-  {
-    number: '02',
-    name: 'Search & AI Visibility',
-    headline: 'Get Found Where Your Customers Are Searching',
-    description: 'Search is evolving beyond Google. Today’s customers discover businesses through search engines, AI assistants, voice search, and generative AI platforms. We help your brand increase visibility across both traditional search and AI-powered search experiences, ensuring your business is discoverable wherever customers are looking.',
-    offers: ['Search Engine Optimization (SEO)', 'Local SEO', 'Google Business Profile Optimization', 'Technical SEO', 'Content Optimization', 'AI Search Optimization', 'Generative Engine Optimization (GEO)', 'AI Visibility Strategy'],
-    result: 'Higher rankings, increased organic traffic, and stronger visibility across Google and AI platforms.',
-  },
-  {
-    number: '03',
-    name: 'Conversion Optimization',
-    headline: 'Turn More Visitors into Paying Customers',
-    description: 'Driving traffic is only half the equation. The real growth happens when visitors become customers. Our Conversion Rate Optimization (CRO) strategies identify friction points across your website and sales funnel, helping improve user experience, increase conversions, and maximize every marketing investment.',
-    offers: ['Conversion Rate Optimization (CRO)', 'Landing Page Design', 'Sales Funnel Strategy', 'Funnel Optimization', 'A/B Testing', 'User Experience Optimization', 'Lead Capture Optimization', 'Website Performance Analysis'],
-    result: 'More leads, higher conversion rates, and increased revenue without increasing ad spend.',
-  },
-  {
-    number: '04',
-    name: 'AI Marketing Automation',
-    headline: 'Automate Your Growth. Scale Smarter.',
-    description: 'Businesses shouldn’t waste time on repetitive tasks. AI automation enables faster operations, better customer experiences, and improved marketing performance. We design intelligent workflows that automate customer interactions, streamline operations, and help your team focus on growth.',
-    offers: ['Workflow Automation', 'CRM Automation', 'Lead Management', 'Lead Nurturing', 'Email Automation', 'AI Chatbots', 'Marketing Automation', 'Customer Journey Automation'],
-    result: 'Faster response times, better customer engagement, and increased operational efficiency.',
-  },
-  {
-    number: '05',
-    name: 'Founder & Brand Authority',
-    headline: 'Build Trust Before You Sell',
-    description: 'People don’t just buy products—they buy from brands and leaders they trust. We help founders and businesses establish authority through strategic content, personal branding, and thought leadership that strengthens credibility and attracts high-value opportunities.',
-    offers: ['Founder Branding', 'LinkedIn Personal Branding', 'Thought Leadership Strategy', 'Executive Content Creation', 'Brand Positioning', 'PR Strategy', 'Reputation Management', 'Content Strategy'],
-    result: 'Increased credibility, stronger brand perception, and higher-quality business opportunities.',
-  },
-  {
-    number: '06',
-    name: 'Marketplace Growth',
-    headline: 'Scale Your Sales Across Digital Marketplaces',
-    description: 'Selling on marketplaces requires more than listing products. Success depends on visibility, optimized product pages, advertising, pricing, and continuous performance improvement. We help brands grow their presence across leading marketplaces while improving conversion rates and maximizing sales.',
-    offers: ['Amazon Growth Strategy', 'Marketplace SEO', 'Product Listing Optimization', 'Amazon Advertising', 'Performance Analytics', 'Marketplace Account Management', 'Product Launch Strategy', 'Sales Optimization'],
-    result: 'Higher product visibility, increased marketplace sales, and sustainable revenue growth.',
-  },
-]
-
-const growthOutcomes = [
-  'Generate qualified leads',
-  'Improve search visibility',
-  'Increase website conversions',
-  'Automate marketing processes',
-  'Build brand authority',
-  'Scale marketplace sales',
-  'Drive predictable revenue growth',
-]
-
-const testimonials = [
-  {
-    name: 'Amit Kharbanda',
-    designation: 'Founder & CEO, Global Infra Solutions',
-    quote: 'Revenue Growth has been a reliable marketing partner for our business. Their team understands our goals, communicates clearly, and consistently delivers quality work. We’ve seen better online visibility and a noticeable increase in genuine business inquiries.',
-  },
-  {
-    name: 'Deepak Kohli',
-    designation: 'CEO, Panlex LLP',
-    quote: 'Revenue Growth helped us establish a strong digital presence from the ground up. From designing our print materials to building our social media presence, their team delivered everything with professionalism and attention to detail. They’ve been a dependable partner throughout our branding journey.',
-  },
+  ['Branding', 'Bold identities built to make ambitious brands impossible to ignore.'],
+  ['Digital Products', 'Useful, intuitive experiences that turn complex ideas into simple products.'],
+  ['Websites', 'High-performing websites designed to earn attention and drive action.'],
+  ['Development', 'Fast, flexible technology built to scale alongside your business.'],
+  ['Content', 'Strategic stories and campaigns that make your message matter.'],
+  ['Generative Tools', 'Practical AI tools that help your teams move smarter and faster.'],
 ]
 
 const articles = [
@@ -130,8 +65,9 @@ function HeroSection({ onScheduleCall, about = false }) {
         </div>
       ) : (
         <div className="hero-copy">
-          <h1>Your Next Stage of<br />Growth Starts Here.</h1>
-          <h2>Growth Is Our Only Metric.</h2>
+          <p>Fuelling your</p>
+          <h1>Online Growth</h1>
+          <h2>through smart digital solutions</h2>
           <button className="pill" onClick={onScheduleCall}>Schedule a call</button>
         </div>
       )}
@@ -201,49 +137,14 @@ function App() {
         <div className="about-image">
           <img src={transformativeWork} alt="Creative professional working at a laptop" />
         </div>
-        <div className="hero-description">
-          <p>We believe marketing should create measurable business outcomes—not just impressions, clicks, or followers.</p>
-          <p>Every campaign, every strategy, and every decision is designed to generate qualified leads, increase conversions, and drive sustainable revenue growth.</p>
-          <p>From AI-powered automation to performance marketing and conversion optimization, we build systems that help businesses scale with confidence.</p>
-        </div>
+        <p>We build transformative digital experiences for the world's leading brands by blending AI, design, and technology.</p>
       </section>
 
       <section className="services-section" id="services">
         <div className="wrap">
-          <h2 className="section-title">Growth Solutions Built to Scale Your Business</h2>
-          <div className="section-intro">
-            <p>Marketing alone doesn’t create growth. A connected strategy does.</p>
-            <p>At Revenue Growth, we combine AI, digital marketing, automation, search visibility, and conversion optimization to build predictable growth systems that generate qualified leads, increase conversions, and drive long-term revenue.</p>
-            <p>Whether you’re a startup, an established business, or an enterprise, our solutions are designed to help you attract the right customers, convert them faster, and scale efficiently.</p>
-          </div>
+          <h2 className="section-title">Our Services</h2>
           <div className="service-grid">
-            {services.map((service) => (
-              <article key={service.number}>
-                <span className="service-number">{service.number}</span>
-                <h3>{service.name}</h3>
-                <h4>{service.headline}</h4>
-                <p>{service.description}</p>
-                <h5>What We Offer</h5>
-                <ul>{service.offers.map((offer) => <li key={offer}>{offer}</li>)}</ul>
-                {service.result && <p className="service-result"><strong>Expected result:</strong> {service.result}</p>}
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="why-section">
-        <div className="wrap why-grid">
-          <div>
-            <span className="eyebrow">Why Choose Us</span>
-            <h2>Why Businesses Choose Revenue Growth</h2>
-            <h3>Growth isn’t a campaign—it’s a system.</h3>
-            <p>Our approach combines strategy, AI, performance marketing, automation, and optimization into one connected growth engine.</p>
-            <p>Every service we deliver is focused on measurable business outcomes—not vanity metrics.</p>
-          </div>
-          <div>
-            <h4>We help businesses:</h4>
-            <ul>{growthOutcomes.map((outcome) => <li key={outcome}>{outcome}</li>)}</ul>
+            {services.map(([title, text]) => <article key={title}><h3>{title}</h3><p>{text}</p></article>)}
           </div>
         </div>
       </section>
@@ -261,7 +162,7 @@ function App() {
       <section className="testimonials wrap" id="clients">
         <h2 className="section-title">Our Clients Say</h2>
         <div className="quote-grid">
-          {testimonials.map(({ name, designation, quote }) => <blockquote key={name}><span>“</span><p>{quote}</p><footer>{name}<small>{designation}</small></footer></blockquote>)}
+          {[['Deepak Gulati', 'Revenue Growth transformed how our brand shows up online. The team brought clarity, pace and genuine creative spark.'], ['Nandita Shah', 'They understood our ambition from day one and turned it into a digital experience our customers truly love.']].map(([name, quote]) => <blockquote key={name}><span>“</span><p>{quote}</p><footer>{name}</footer></blockquote>)}
         </div>
       </section>
 
@@ -280,7 +181,9 @@ function App() {
 
 const team = [
   [nandaniPortrait, 'Nandani'],
-  [shripatiPortrait, 'Shripati Avasthi'],
+  ['https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=700&q=85', 'Becky Naylor'],
+  ['https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=700&q=85', 'Becky Naylor'],
+  ['https://images.unsplash.com/photo-1568602471122-7832951cc4c5?auto=format&fit=crop&w=700&q=85', 'Becky Naylor'],
 ]
 
 const studioImages = [
