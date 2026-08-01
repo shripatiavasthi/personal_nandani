@@ -43,11 +43,12 @@ nav a:hover:after { width:100%; }
 .team-section { padding:90px 0 125px; background:linear-gradient(180deg,#fff 0%,#effbff 16%,#a8e3f3 70%,#eefbff 100%); }
 .team-intro-copy { max-width:930px; margin:0 auto 92px; font-size:18px; line-height:1.65; }
 .team-section .about-heading { margin-bottom:48px; text-align:center; font-size:40px; letter-spacing:-1.4px; }
-.team-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; max-width:1120px; margin:auto; }
+.team-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:28px; max-width:620px; margin:auto; }
 .team-grid article { text-align:center; }
 .team-grid img { display:block; width:100%; aspect-ratio:3/4; object-fit:cover; object-position:center top; border-radius:15px; }
 .team-grid article>div { padding:17px 8px 0; }
 .team-grid h3 { font-size:18px; font-weight:500; margin:0; }
+.team-grid p { margin:6px 0 0; color:#44616f; font-size:14px; font-weight:600; }
 .studio { padding-block:90px 130px; }
 .studio-gallery { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; max-width:920px; margin:auto; }
 .studio-gallery a { display:block; border-radius:13px; overflow:hidden; transition:transform .25s,box-shadow .25s; }

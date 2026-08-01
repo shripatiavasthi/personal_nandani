@@ -6,6 +6,7 @@ import gisProject from './assets/work/gis.png'
 import panlexProject from './assets/work/panlex.png'
 import revenueGrowthLogo from './assets/r-g-logo.png'
 import nandaniPortrait from './assets/nandani.jpg'
+import shripatiPortrait from './assets/shripati-avasthi.jpg'
 import transformativeWork from './assets/transformative-work.png'
 
 const services = [
@@ -180,10 +181,8 @@ function App() {
 }
 
 const team = [
-  [nandaniPortrait, 'Nandani'],
-  ['https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=700&q=85', 'Becky Naylor'],
-  ['https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=700&q=85', 'Becky Naylor'],
-  ['https://images.unsplash.com/photo-1568602471122-7832951cc4c5?auto=format&fit=crop&w=700&q=85', 'Becky Naylor'],
+  [nandaniPortrait, 'Nandani', 'Company Director'],
+  [shripatiPortrait, 'Shripati Avasthi', 'CTO'],
 ]
 
 const studioImages = [
@@ -203,7 +202,7 @@ function AboutPage() {
 
       <HeroSection onScheduleCall={goToContact} about />
 
-      <section className="team-section"><div className="wrap"><p className="team-intro-copy">For over 20 years, since 2003, we’ve been at the forefront of digital marketing, helping businesses navigate the ever-changing online landscape without losing their way – or their sanity. Based in the heart of Ripon, North Yorkshire, we’re proud to be small-town locals with big-time impact, working with companies across the UK and internationally delivering innovative strategies tailored to the unique needs of each client.</p><h2 className="about-heading">Meet the team</h2><div className="team-grid">{team.map(([image, name], index) => <article key={`${name}-${index}`}><img src={image} alt={`${name}, Revenue Growth team member`} /><div><h3>{name}</h3></div></article>)}</div></div></section>
+      <section className="team-section"><div className="wrap"><p className="team-intro-copy">For over 20 years, since 2003, we’ve been at the forefront of digital marketing, helping businesses navigate the ever-changing online landscape without losing their way – or their sanity. Based in the heart of Ripon, North Yorkshire, we’re proud to be small-town locals with big-time impact, working with companies across the UK and internationally delivering innovative strategies tailored to the unique needs of each client.</p><h2 className="about-heading">Meet the team</h2><div className="team-grid">{team.map(([image, name, designation]) => <article key={name}><img src={image} alt={`${name}, ${designation} at Revenue Growth`} /><div><h3>{name}</h3><p>{designation}</p></div></article>)}</div></div></section>
 
       <MakeItHappen onScheduleCall={goToContact} />
 
