@@ -25,7 +25,7 @@ const articles = [
 ]
 
 function Logo() {
-  return <a className="logo" href="/" aria-label="Revenue Growth home"><img src={revenueGrowthLogo} alt="Revenue Growth" /></a>
+  return <a className="logo" href="/home" aria-label="Revenue Growth home"><img src={revenueGrowthLogo} alt="Revenue Growth" /></a>
 }
 
 function SiteHeader({ onStartProject }) {
@@ -36,7 +36,7 @@ function SiteHeader({ onStartProject }) {
       <Logo />
       <button className="menu-button" aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>☰</button>
       <nav className={menuOpen ? 'open' : ''} onClick={() => setMenuOpen(false)}>
-        <a href="/#work">Work</a><a href="/#clients">Clients</a><a href="/#services">Services</a><a href="/about">About</a><a href="/#insights">Blog</a>
+        <a href="/home#work">Work</a><a href="/home#clients">Clients</a><a href="/home#services">Services</a><a href="/about">About</a><a href="/home#insights">Blog</a>
         <button className="pill" onClick={onStartProject}>Start a project</button>
       </nav>
     </header>
@@ -47,7 +47,7 @@ function SiteFooter() {
   return (
     <footer className="footer" id="contact">
       <div className="wrap footer-grid"><div><h2>Let’s Talk</h2><a href="mailto:revenue@gmail.com">revenue@gmail.com</a><a href="tel:+919999005697">+91 99990 05697</a><div className="socials"><a href="#top">ig</a><a href="#top">Be</a><a href="#top">in</a><a href="#top">𝕏</a></div></div>
-        <div className="footer-links"><a href="/#work">Work</a><a href="/about">About</a><a href="/#clients">Clients</a><a href="/#insights">Blog</a><a href="/#services">Services</a><a href="mailto:revenue@gmail.com">Contact</a><a href="/#services">Industries</a></div>
+        <div className="footer-links"><a href="/home#work">Work</a><a href="/about">About</a><a href="/home#clients">Clients</a><a href="/home#insights">Blog</a><a href="/home#services">Services</a><a href="mailto:revenue@gmail.com">Contact</a><a href="/home#services">Industries</a></div>
       </div><div className="wrap copyright">© 2026 Revenue Growth <span>Built for what’s next.</span></div>
     </footer>
   )
@@ -194,7 +194,7 @@ const studioImages = [
 ]
 
 function AboutPage() {
-  const goToContact = () => { window.location.href = '/#contact' }
+  const goToContact = () => { window.location.href = '/home#contact' }
 
   return (
     <main id="top" className="about-page">
@@ -213,8 +213,34 @@ function AboutPage() {
   )
 }
 
+function ComingSoonPage() {
+  return (
+    <main className="coming-soon-page">
+      <div className="coming-soon-glow coming-soon-glow-one" aria-hidden="true" />
+      <div className="coming-soon-glow coming-soon-glow-two" aria-hidden="true" />
+      <header className="coming-soon-header">
+        <img src={revenueGrowthLogo} alt="Revenue Growth" />
+      </header>
+      <section className="coming-soon-content">
+        <p className="coming-soon-eyebrow">Something exciting is on the way</p>
+        <h1>Coming <em>Soon</em></h1>
+        <p className="coming-soon-message">We’re creating a new digital experience to help ambitious brands grow. Stay tuned.</p>
+        <a className="pill coming-soon-contact" href="mailto:revenue@gmail.com">Get in touch</a>
+      </section>
+      <footer className="coming-soon-footer">
+        <span>© 2026 Revenue Growth</span>
+        <a href="mailto:revenue@gmail.com">revenue@gmail.com</a>
+      </footer>
+    </main>
+  )
+}
+
 function Root() {
-  return window.location.pathname.replace(/\/+$/, '') === '/about' ? <AboutPage /> : <App />
+  const path = window.location.pathname.replace(/\/+$/, '') || '/'
+
+  if (path === '/home') return <App />
+  if (path === '/about') return <AboutPage />
+  return <ComingSoonPage />
 }
 
 export default Root
