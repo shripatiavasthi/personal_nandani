@@ -50,7 +50,7 @@ function SiteHeader({ onStartProject }) {
       <Logo />
       <button className="menu-button" aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>☰</button>
       <nav className={menuOpen ? 'open' : ''} onClick={() => setMenuOpen(false)}>
-        <a href="/home#work">Work</a><a href="/home#clients">Clients</a><a href="/home#services">Services</a><a href="/about">About</a><a href="/home#insights">Blog</a>
+        <a href="/home#work">Work</a><a href="/home#clients">Clients</a><a href="/services">Services</a><a href="/about">About</a><a href="/home#insights">Blog</a>
         <button className="pill" onClick={onStartProject}>Start a project</button>
       </nav>
     </header>
@@ -61,7 +61,7 @@ function SiteFooter() {
   return (
     <footer className="footer" id="contact">
       <div className="wrap footer-grid"><div><h2>Let’s Talk</h2><a href="mailto:revenue@gmail.com">revenue@gmail.com</a><a href="tel:+919999005697">+91 99990 05697</a><div className="socials"><a href="#top">ig</a><a href="#top">Be</a><a href="#top">in</a><a href="#top">𝕏</a></div></div>
-        <div className="footer-links"><a href="/home#work">Work</a><a href="/about">About</a><a href="/home#clients">Clients</a><a href="/home#insights">Blog</a><a href="/home#services">Services</a><a href="mailto:revenue@gmail.com">Contact</a><a href="/home#services">Industries</a></div>
+        <div className="footer-links"><a href="/home#work">Work</a><a href="/about">About</a><a href="/home#clients">Clients</a><a href="/home#insights">Blog</a><a href="/services">Services</a><a href="mailto:revenue@gmail.com">Contact</a><a href="/services">Industries</a></div>
       </div><div className="wrap copyright">© 2026 Revenue Growth <span>Built for what’s next.</span></div>
     </footer>
   )
@@ -161,7 +161,7 @@ function App() {
         <div className="wrap">
           <h2 className="section-title">Our Services</h2>
           <div className="service-grid">
-            {services.map(([title, text]) => <article key={title}><h3>{title}</h3><p>{text}</p></article>)}
+            {services.map(([title, text]) => <a href="/services" key={title} aria-label={`Learn more about ${title}`}><article><h3>{title}</h3><p>{text}</p></article></a>)}
           </div>
         </div>
       </section>
@@ -235,6 +235,37 @@ function AboutPage() {
   )
 }
 
+function ServicesPage() {
+  const goToContact = () => { window.location.href = '/home#contact' }
+
+  return (
+    <main id="top" className="services-page">
+      <SiteHeader onStartProject={goToContact} />
+
+      <section className="hero-section about-page-hero services-page-hero">
+        <picture className="hero-banner"><img src={aboutBanner} alt="" aria-hidden="true" /></picture>
+        <div className="hero-copy about-hero-copy">
+          <h1>Services</h1>
+          <h2>A full-service digital innovation partner</h2>
+        </div>
+        <img className="growth-arrow" src={growthArrow} alt="" aria-hidden="true" />
+      </section>
+
+      <div className="services-page-gradient">
+        <section className="services-overview wrap">
+          <p className="services-intro">Our digital marketing services combine strategy, technology, and performance-driven execution to strengthen your online presence and create meaningful business results.</p>
+          <div className="service-grid">
+            {services.map(([title, text]) => <article key={title}><h3>{title}</h3><p>{text}</p></article>)}
+          </div>
+        </section>
+        <MakeItHappen onScheduleCall={goToContact} />
+      </div>
+
+      <SiteFooter />
+    </main>
+  )
+}
+
 function ComingSoonPage() {
   return (
     <main className="coming-soon-page">
@@ -262,6 +293,7 @@ function Root() {
 
   if (path === '/home') return <App />
   if (path === '/about') return <AboutPage />
+  if (path === '/services') return <ServicesPage />
   return <ComingSoonPage />
 }
 
