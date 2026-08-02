@@ -10,18 +10,31 @@ import shripatiPortrait from './assets/shripati-avasthi.jpg'
 import transformativeWork from './assets/transformative-work.png'
 
 const services = [
-  ['Branding', 'Bold identities built to make ambitious brands impossible to ignore.'],
-  ['Digital Products', 'Useful, intuitive experiences that turn complex ideas into simple products.'],
-  ['Websites', 'High-performing websites designed to earn attention and drive action.'],
-  ['Development', 'Fast, flexible technology built to scale alongside your business.'],
-  ['Content', 'Strategic stories and campaigns that make your message matter.'],
-  ['Generative Tools', 'Practical AI tools that help your teams move smarter and faster.'],
+  ['Growth Marketing', 'Acquire, engage, and retain more customers through measurable, data-backed marketing strategies.'],
+  ['Search & AI Visibility', 'Increase your visibility across Google, search engines, and AI-powered discovery platforms.'],
+  ['Conversion Optimization', 'Turn more website visitors into qualified leads and paying customers.'],
+  ['AI Marketing Automation', 'Automate repetitive workflows, improve customer experiences, and scale your growth smarter.'],
+  ['Founder & Brand Authority', 'Build credibility and attract valuable opportunities through strategic thought leadership.'],
+  ['Marketplace Growth', 'Improve product visibility, conversions, and sales across leading digital marketplaces.'],
 ]
 
 const articles = [
   ['https://images.unsplash.com/photo-1573164574511-73c773193279?auto=format&fit=crop&w=700&q=85', 'Essential Guide to Effective Pay-Per-Click Campaigns'],
   ['https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=700&q=85', 'How to Build a Digital Strategy That Converts'],
   ['https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=700&q=85', 'Why Generative Tools Belong in Your Workflow'],
+]
+
+const testimonials = [
+  {
+    name: 'Amit Kharbanda',
+    designation: 'Founder & CEO, Global Infra Solutions',
+    quote: "Revenue Growth has been a reliable marketing partner for our business. Their team understands our goals, communicates clearly, and consistently delivers quality work. We've seen better online visibility and a noticeable increase in genuine business inquiries.",
+  },
+  {
+    name: 'Deepak Kohli',
+    designation: 'CEO, Panlex LLP',
+    quote: "Revenue Growth helped us establish a strong digital presence from the ground up. From designing our print materials to building our social media presence, their team delivered everything with professionalism and attention to detail. They've been a dependable partner throughout our branding journey.",
+  },
 ]
 
 function Logo() {
@@ -66,9 +79,7 @@ function HeroSection({ onScheduleCall, about = false }) {
         </div>
       ) : (
         <div className="hero-copy">
-          <p>Fuelling your</p>
-          <h1>Online Growth</h1>
-          <h2>through smart digital solutions</h2>
+          <h1>Your Next Stage of<br />Growth Starts Here.</h1>
           <button className="pill" onClick={onScheduleCall}>Schedule a call</button>
         </div>
       )}
@@ -138,7 +149,11 @@ function App() {
         <div className="about-image">
           <img src={transformativeWork} alt="Creative professional working at a laptop" />
         </div>
-        <p>We build transformative digital experiences for the world's leading brands by blending AI, design, and technology.</p>
+        <div className="about-copy">
+          <p>We believe marketing should create measurable business outcomes—not just impressions, clicks, or followers.</p>
+          <p>Every campaign, every strategy, and every decision is designed to generate qualified leads, increase conversions, and drive sustainable revenue growth.</p>
+          <p>From AI-powered automation to performance marketing and conversion optimization, we build systems that help businesses scale with confidence.</p>
+        </div>
       </section>
 
       <section className="services-section" id="services">
@@ -163,7 +178,13 @@ function App() {
       <section className="testimonials wrap" id="clients">
         <h2 className="section-title">Our Clients Say</h2>
         <div className="quote-grid">
-          {[['Deepak Gulati', 'Revenue Growth transformed how our brand shows up online. The team brought clarity, pace and genuine creative spark.'], ['Nandita Shah', 'They understood our ambition from day one and turned it into a digital experience our customers truly love.']].map(([name, quote]) => <blockquote key={name}><span>“</span><p>{quote}</p><footer>{name}</footer></blockquote>)}
+          {testimonials.map(({ name, designation, quote }) => (
+            <blockquote key={name}>
+              <span>“</span>
+              <p>{quote}</p>
+              <footer><strong>{name}</strong><small>{designation}</small></footer>
+            </blockquote>
+          ))}
         </div>
       </section>
 
