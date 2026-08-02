@@ -63,11 +63,11 @@ nav a:hover:after { width:100%; }
 /* Services page */
 .services-page { overflow:hidden; }
 .services-page-hero .about-hero-copy h2 { max-width:680px; }
-.services-page-gradient { padding-top:1px; background:radial-gradient(circle at 14% 55%,rgba(54,180,219,.82),transparent 45%),linear-gradient(180deg,#fff 0%,#e9faff 12%,#a8e3f3 58%,#f4fcff 100%); }
+.services-page-gradient { padding-block:1px; background:radial-gradient(circle at 14% 55%,rgba(54,180,219,.82),transparent 45%),linear-gradient(180deg,#fff 0%,#e9faff 12%,#a8e3f3 58%,#f4fcff 100%); }
 .services-overview { padding-top:95px; }
 .services-intro { max-width:900px; margin:0 0 70px; font-size:21px; line-height:1.6; }
 .services-page .service-grid article { background:rgba(255,255,255,.08); }
-.services-page .cta { margin-bottom:0; }
+.services-page .service-grid article:hover { color:white; border-color:rgba(255,255,255,.75); background-image:linear-gradient(135deg,rgba(70,58,139,.94),rgba(119,48,112,.9)),url('./assets/banners/banner-mobile-tablet.jpg'); background-position:center; background-size:cover; box-shadow:0 16px 30px rgba(65,44,105,.25); }
 
 /* Coming soon page */
 .coming-soon-page { min-height:100svh; position:relative; overflow:hidden; display:grid; grid-template-rows:auto 1fr auto; padding:0 max(24px,calc((100% - 1400px)/2)); background:linear-gradient(145deg,#f9fdff 0%,#dff6fc 48%,#b8e8f4 100%); isolation:isolate; }
