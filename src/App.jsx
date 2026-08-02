@@ -50,7 +50,7 @@ function SiteHeader({ onStartProject }) {
       <Logo />
       <button className="menu-button" aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>☰</button>
       <nav className={menuOpen ? 'open' : ''} onClick={() => setMenuOpen(false)}>
-        <a href="/home#work">Work</a><a href="/home#clients">Clients</a><a href="/services">Services</a><a href="/about">About</a><a href="/home#insights">Blog</a>
+        <a href="/home#clients">Clients</a><a href="/services">Services</a><a href="/about">About</a><a href="/home#insights">Blog</a>
         <button className="pill" onClick={onStartProject}>Start a project</button>
       </nav>
     </header>
