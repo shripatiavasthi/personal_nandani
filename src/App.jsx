@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import growthArrow from './assets/arrow.png'
+import aboutBanner from './assets/banners/banner-2.jpg'
 import bannerMobileTablet from './assets/banners/banner-mobile-tablet.jpg'
 import gisProject from './assets/work/gis.png'
 import panlexProject from './assets/work/panlex.png'
@@ -70,7 +71,7 @@ function HeroSection({ onScheduleCall, about = false }) {
   return (
       <section className={`hero-section ${about ? 'about-page-hero' : 'home-hero'}`}>
         <picture className="hero-banner">
-          <img src={bannerMobileTablet} alt="" aria-hidden="true" />
+          <img src={about ? aboutBanner : bannerMobileTablet} alt="" aria-hidden="true" />
         </picture>
       {about ? (
         <div className="hero-copy about-hero-copy">
