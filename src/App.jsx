@@ -39,7 +39,7 @@ const testimonials = [
 ]
 
 function Logo() {
-  return <a className="logo" href="/home" aria-label="Revenue Growth home"><img src={revenueGrowthLogo} alt="Revenue Growth" /></a>
+  return <a className="logo" href="/" aria-label="Revenue Growth home"><img src={revenueGrowthLogo} alt="Revenue Growth" /></a>
 }
 
 function SiteHeader({ onStartProject }) {
@@ -50,7 +50,7 @@ function SiteHeader({ onStartProject }) {
       <Logo />
       <button className="menu-button" aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>☰</button>
       <nav className={menuOpen ? 'open' : ''} onClick={() => setMenuOpen(false)}>
-        <a href="/home#clients">Clients</a><a href="/services">Services</a><a href="/about">About</a><a href="/home#insights">Blog</a>
+        <a href="/#clients">Clients</a><a href="/services">Services</a><a href="/about">About</a><a href="/#insights">Blog</a>
         <button className="pill" onClick={onStartProject}>Start a project</button>
       </nav>
     </header>
@@ -61,7 +61,7 @@ function SiteFooter() {
   return (
     <footer className="footer" id="contact">
       <div className="wrap footer-grid"><div><h2>Let’s Talk</h2><a href="mailto:revenue@gmail.com">revenue@gmail.com</a><a href="tel:+919999005697">+91 99990 05697</a><div className="socials"><a href="#top">ig</a><a href="#top">Be</a><a href="#top">in</a><a href="#top">𝕏</a></div></div>
-        <div className="footer-links"><a href="/home#work">Work</a><a href="/about">About</a><a href="/home#clients">Clients</a><a href="/home#insights">Blog</a><a href="/services">Services</a><a href="mailto:revenue@gmail.com">Contact</a><a href="/services">Industries</a></div>
+        <div className="footer-links"><a href="/#work">Work</a><a href="/about">About</a><a href="/#clients">Clients</a><a href="/#insights">Blog</a><a href="/services">Services</a><a href="mailto:revenue@gmail.com">Contact</a><a href="/services">Industries</a></div>
       </div><div className="wrap copyright">© 2026 Revenue Growth <span>Built for what’s next.</span></div>
     </footer>
   )
@@ -75,8 +75,9 @@ function HeroSection({ onScheduleCall, about = false }) {
         </picture>
       {about ? (
         <div className="hero-copy about-hero-copy">
-          <h1>About Us</h1>
-          <h2>We transform brands through<br />elevated digital experiences</h2>
+          <p className="about-hero-label">About Us</p>
+          <h1>Driving Measurable Success in the Digital Economy.</h1>
+          <h2>We do not just market. We scale businesses.</h2>
         </div>
       ) : (
         <div className="hero-copy">
@@ -216,7 +217,7 @@ const studioImages = [
 ]
 
 function AboutPage() {
-  const goToContact = () => { window.location.href = '/home#contact' }
+  const goToContact = () => { window.location.href = '/#contact' }
 
   return (
     <main id="top" className="about-page">
@@ -224,7 +225,49 @@ function AboutPage() {
 
       <HeroSection onScheduleCall={goToContact} about />
 
-      <section className="team-section"><div className="wrap"><p className="team-intro-copy">For over 20 years, since 2003, we’ve been at the forefront of digital marketing, helping businesses navigate the ever-changing online landscape without losing their way – or their sanity. Based in the heart of Ripon, North Yorkshire, we’re proud to be small-town locals with big-time impact, working with companies across the UK and internationally delivering innovative strategies tailored to the unique needs of each client.</p><h2 className="about-heading">Meet the team</h2><div className="team-grid">{team.map(([image, name, designation]) => <article key={name}><img src={image} alt={`${name}, ${designation} at Revenue Growth`} /><div><h3>{name}</h3><p>{designation}</p></div></article>)}</div></div></section>
+      <section className="team-section">
+        <div className="wrap">
+          <div className="about-introduction">
+            <p className="team-intro-copy">Revenue Growth is a premium digital strategy agency built for the modern B2B and corporate landscape. We turn complex market dynamics into streamlined, scalable revenue pipelines.</p>
+          </div>
+
+          <div className="about-philosophy">
+            <span className="eyebrow">Our Core Philosophy</span>
+            <h2 className="about-heading">Your growth is our business.</h2>
+            <p>We align every strategy with your corporate objectives, ensuring each digital initiative is accountable to a measurable return on investment.</p>
+          </div>
+
+          <div className="about-advantage">
+            <span className="eyebrow">The Revenue Growth Advantage</span>
+            <h2 className="about-heading">Technology meets business economics.</h2>
+            <div className="advantage-grid">
+              <article>
+                <h3>Data-Driven Architectures</h3>
+                <p>We build marketing ecosystems grounded in empirical data, focusing on high-conversion activity and lead velocity.</p>
+              </article>
+              <article>
+                <h3>AI-Powered Execution</h3>
+                <p>We use advanced AI frameworks to improve search visibility, automate CRM workflows, and accelerate market penetration.</p>
+              </article>
+              <article>
+                <h3>Holistic Growth Alignment</h3>
+                <p>From digital authority to final funnel conversion, every touchpoint is optimized to drive bottom-line revenue.</p>
+              </article>
+            </div>
+          </div>
+
+          <div className="about-commitment">
+            <span className="eyebrow">Our Commitment</span>
+            <h2 className="about-heading">An extension of your business.</h2>
+            <p>We operate with transparency and a rigorous focus on scalability, helping established enterprises and high-growth brands build authority, strengthen their digital presence, and earn market share.</p>
+          </div>
+
+          <div className="about-team">
+            <h2 className="about-heading">Meet the team</h2>
+            <div className="team-grid">{team.map(([image, name, designation]) => <article key={name}><img src={image} alt={`${name}, ${designation} at Revenue Growth`} /><div><h3>{name}</h3><p>{designation}</p></div></article>)}</div>
+          </div>
+        </div>
+      </section>
 
       <MakeItHappen onScheduleCall={goToContact} />
 
@@ -236,7 +279,7 @@ function AboutPage() {
 }
 
 function ServicesPage() {
-  const goToContact = () => { window.location.href = '/home#contact' }
+  const goToContact = () => { window.location.href = '/#contact' }
 
   return (
     <main id="top" className="services-page">
@@ -288,13 +331,110 @@ function ComingSoonPage() {
   )
 }
 
+const SITE_URL = 'https://www.revenuegrowth.in'
+
+const seoByPath = {
+  '/': {
+    title: 'Revenue Growth | B2B Digital Strategy & Growth Marketing',
+    description: 'Revenue Growth helps B2B and corporate brands scale through data-driven digital strategy, growth marketing, AI visibility, automation, and conversion optimization.',
+    image: bannerMobileTablet,
+  },
+  '/about': {
+    title: 'About Revenue Growth | Digital Strategy Agency',
+    description: 'Meet Revenue Growth, a digital strategy agency that turns complex market dynamics into scalable revenue pipelines for B2B and corporate brands.',
+    image: aboutBanner,
+  },
+  '/services': {
+    title: 'Digital Growth Services | Revenue Growth',
+    description: 'Explore growth marketing, search and AI visibility, conversion optimization, AI automation, brand authority, and marketplace growth services.',
+    image: aboutBanner,
+  },
+}
+
+function upsertMeta(selector, attributes) {
+  let element = document.head.querySelector(selector)
+  if (!element) {
+    element = document.createElement('meta')
+    document.head.appendChild(element)
+  }
+  Object.entries(attributes).forEach(([name, value]) => element.setAttribute(name, value))
+}
+
+function Seo({ path }) {
+  useEffect(() => {
+    const canonicalPath = path === '/home' ? '/' : path
+    const seo = seoByPath[canonicalPath]
+    const canonicalUrl = `${SITE_URL}${canonicalPath}`
+
+    if (!seo) {
+      document.title = 'Page Not Found | Revenue Growth'
+      upsertMeta('meta[name="robots"]', { name: 'robots', content: 'noindex, follow' })
+      return
+    }
+
+    const imageUrl = new URL(seo.image, SITE_URL).href
+    document.title = seo.title
+    upsertMeta('meta[name="description"]', { name: 'description', content: seo.description })
+    upsertMeta('meta[name="robots"]', { name: 'robots', content: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' })
+    upsertMeta('meta[property="og:title"]', { property: 'og:title', content: seo.title })
+    upsertMeta('meta[property="og:description"]', { property: 'og:description', content: seo.description })
+    upsertMeta('meta[property="og:url"]', { property: 'og:url', content: canonicalUrl })
+    upsertMeta('meta[property="og:image"]', { property: 'og:image', content: imageUrl })
+    upsertMeta('meta[property="og:image:alt"]', { property: 'og:image:alt', content: 'Revenue Growth digital strategy agency' })
+    upsertMeta('meta[name="twitter:title"]', { name: 'twitter:title', content: seo.title })
+    upsertMeta('meta[name="twitter:description"]', { name: 'twitter:description', content: seo.description })
+    upsertMeta('meta[name="twitter:image"]', { name: 'twitter:image', content: imageUrl })
+
+    let canonical = document.head.querySelector('link[rel="canonical"]')
+    if (!canonical) {
+      canonical = document.createElement('link')
+      canonical.rel = 'canonical'
+      document.head.appendChild(canonical)
+    }
+    canonical.href = canonicalUrl
+
+    let structuredData = document.head.querySelector('#revenue-growth-structured-data')
+    if (!structuredData) {
+      structuredData = document.createElement('script')
+      structuredData.id = 'revenue-growth-structured-data'
+      structuredData.type = 'application/ld+json'
+      document.head.appendChild(structuredData)
+    }
+    structuredData.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'Organization',
+          '@id': `${SITE_URL}/#organization`,
+          name: 'Revenue Growth',
+          url: `${SITE_URL}/`,
+          email: 'revenue@gmail.com',
+          telephone: '+91 99990 05697',
+        },
+        {
+          '@type': 'WebSite',
+          '@id': `${SITE_URL}/#website`,
+          url: `${SITE_URL}/`,
+          name: 'Revenue Growth',
+          publisher: { '@id': `${SITE_URL}/#organization` },
+        },
+      ],
+    })
+  }, [path])
+
+  return null
+}
+
 function Root() {
   const path = window.location.pathname.replace(/\/+$/, '') || '/'
 
-  if (path === '/home') return <App />
-  if (path === '/about') return <AboutPage />
-  if (path === '/services') return <ServicesPage />
-  return <ComingSoonPage />
+  let page
+  if (path === '/' || path === '/home') page = <App />
+  else if (path === '/about') page = <AboutPage />
+  else if (path === '/services') page = <ServicesPage />
+  else page = <ComingSoonPage />
+
+  return <><Seo path={path} />{page}</>
 }
 
 export default Root

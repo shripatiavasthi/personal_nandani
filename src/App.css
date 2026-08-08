@@ -20,6 +20,8 @@ nav a:hover:after { width:100%; }
 .home-hero .hero-copy h1 { max-width:900px; margin:0 0 38px; font-size:clamp(52px,5.5vw,79px); line-height:1.02; letter-spacing:-4px; }.home-hero .hero-copy .pill { padding:16px 28px 14px; font-size:14px; }
 .about-hero-copy h1 { margin:0 0 17px; }
 .about-hero-copy h2 { max-width:560px; font-size:28px; line-height:1.25; letter-spacing:-.8px; margin:0; }
+.about-hero-copy .about-hero-label { margin:0 0 9px; color:#286f89; font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:1.8px; }
+.about-hero-copy h1 { max-width:790px; font-size:clamp(38px,3.7vw,56px); line-height:1.02; letter-spacing:-2.7px; }
 .about-page-hero { height:auto; min-height:300px; aspect-ratio:1900/441; }
 .about-page-hero .hero-banner { top:auto; bottom:-10%; }
 .about-page-hero .hero-banner img { position:relative; left:50%; width:max(111.2%,1435px); height:auto; transform:translateX(-50%); object-fit:initial; }
@@ -45,8 +47,18 @@ nav a:hover:after { width:100%; }
 .eyebrow { display:block; color:#286f89; font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:1.8px; margin-bottom:20px; }
 .about-heading { font-size:clamp(40px,4vw,58px); line-height:1.04; letter-spacing:-2.7px; margin:0; }
 .team-section { padding:90px 0 125px; background:linear-gradient(180deg,#fff 0%,#effbff 16%,#a8e3f3 70%,#eefbff 100%); }
-.team-intro-copy { max-width:930px; margin:0 auto 92px; font-size:18px; line-height:1.65; }
+.team-intro-copy { max-width:930px; margin:0; font-size:clamp(22px,2.3vw,32px); line-height:1.45; letter-spacing:-.5px; }
 .team-section .about-heading { margin-bottom:48px; text-align:center; font-size:40px; letter-spacing:-1.4px; }
+.about-introduction { padding-bottom:90px; }
+.about-philosophy,.about-commitment { max-width:850px; padding:72px 0; border-top:1px solid rgba(15,32,43,.25); }
+.about-philosophy .about-heading,.about-commitment .about-heading,.about-advantage .about-heading { margin:0 0 24px; text-align:left; font-size:clamp(36px,4vw,52px); letter-spacing:-2px; }
+.about-philosophy p,.about-commitment p { max-width:760px; margin:0; font-size:19px; line-height:1.65; }
+.about-advantage { padding:72px 0; border-top:1px solid rgba(15,32,43,.25); }
+.advantage-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:36px; margin-top:52px; }
+.advantage-grid article { padding-top:22px; border-top:3px solid var(--ink); }
+.advantage-grid h3 { margin:0 0 13px; font-size:22px; line-height:1.25; }
+.advantage-grid p { margin:0; font-size:16px; line-height:1.6; }
+.about-team { padding-top:85px; }
 .team-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:28px; max-width:620px; margin:auto; }
 .team-grid article { text-align:center; }
 .team-grid img { display:block; width:100%; aspect-ratio:3/4; object-fit:cover; object-position:center top; border-radius:15px; }
@@ -88,8 +100,8 @@ nav a:hover:after { width:100%; }
 .coming-soon-footer a:hover { color:var(--pink); }
 
 @media (max-width:800px) { .nav-shell { height:78px; }.menu-button { display:block; } nav { display:none; position:absolute; top:78px; left:0; right:0; background:white; flex-direction:column; padding:28px; gap:24px; box-shadow:0 15px 25px #0002; } nav.open { display:flex; }.hero-section { height:520px; }.hero-copy p { font-size:20px; }.hero-copy h1 { font-size:45px; }.hero-copy h2 { font-size:23px; max-width:280px; }.growth-arrow { height:65%; right:8px; bottom:-3%; opacity:.78; }.about { grid-template-columns:1fr; gap:35px; padding-block:65px; }.about-image { height:300px; }.about-copy { max-width:none; }.about-copy p { font-size:18px; }.service-grid { grid-template-columns:1fr 1fr; }.work-grid,.article-grid { grid-template-columns:1fr; }.quote-grid { grid-template-columns:1fr; }.quote-grid blockquote { padding:20px 0 35px!important; border-left:0!important; }.quote-grid blockquote+blockquote { border-top:1px solid #aaa!important; }.cta { height:430px; }.cta h2 { font-size:43px; }.cta .marquee { font-size:84px; }.article-grid a { padding-bottom:25px; }.footer-grid { grid-template-columns:1fr; gap:55px; }.footer h2 { font-size:63px; } }
-@media (max-width:800px) { .home-hero { height:520px; aspect-ratio:auto; }.home-hero .growth-arrow { height:65%; right:8px; bottom:-3%; }.about-page-hero { height:auto; min-height:300px; } }
-@media (max-width:800px) { .team-section { padding-block:70px 85px; }.team-intro-copy { margin-bottom:65px; font-size:16px; }.team-grid { grid-template-columns:1fr; max-width:340px; gap:38px; }.studio { padding-block:70px 90px; }.studio-gallery { grid-template-columns:repeat(2,1fr); }.studio-gallery img { height:220px; }.studio-gallery a:last-child { grid-column:1/3; } }
+@media (max-width:800px) { .home-hero { height:520px; aspect-ratio:auto; }.home-hero .growth-arrow { height:65%; right:8px; bottom:-3%; }.about-page-hero { height:auto; min-height:300px; }.about-hero-copy h1 { max-width:400px; } }
+@media (max-width:800px) { .team-section { padding-block:70px 85px; }.team-intro-copy { font-size:22px; }.about-introduction { padding-bottom:65px; }.about-philosophy,.about-advantage,.about-commitment { padding-block:58px; }.advantage-grid { grid-template-columns:1fr; gap:30px; margin-top:38px; }.about-team { padding-top:65px; }.team-grid { grid-template-columns:1fr; max-width:340px; gap:38px; }.studio { padding-block:70px 90px; }.studio-gallery { grid-template-columns:repeat(2,1fr); }.studio-gallery img { height:220px; }.studio-gallery a:last-child { grid-column:1/3; } }
 @media (max-width:500px) { .wrap,.hero-copy { width:min(100% - 32px,1120px); }.logo img { width:145px; }.hero-copy h1 { font-size:39px; letter-spacing:-2px; }.hero-copy h2 { font-size:20px; }.growth-arrow { height:56%; right:4px; bottom:-2%; opacity:.68; }.service-grid { grid-template-columns:1fr; }.section-title { font-size:30px; }.about-image { height:245px; }.cta h2 { font-size:37px; }.footer-links { gap:18px; }.copyright { flex-direction:column; gap:5px; } }
 @media (max-width:500px) { .home-hero .growth-arrow { height:56%; right:4px; bottom:-2%; } }
 @media (max-width:500px) { .home-hero .hero-copy h1 { margin-bottom:32px; font-size:42px; line-height:1.04; letter-spacing:-2.2px; }.home-hero .hero-copy .pill { padding:14px 24px 12px; font-size:13px; } }
