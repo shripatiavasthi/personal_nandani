@@ -39,7 +39,7 @@ const testimonials = [
 ]
 
 function Logo() {
-  return <a className="logo" href="/" aria-label="Revenue Growth home"><img src={revenueGrowthLogo} alt="Revenue Growth" /></a>
+  return <a className="logo" href="/home" aria-label="Revenue Growth home"><img src={revenueGrowthLogo} alt="Revenue Growth" /></a>
 }
 
 function SiteHeader({ onStartProject }) {
@@ -50,7 +50,7 @@ function SiteHeader({ onStartProject }) {
       <Logo />
       <button className="menu-button" aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>☰</button>
       <nav className={menuOpen ? 'open' : ''} onClick={() => setMenuOpen(false)}>
-        <a href="/#clients">Clients</a><a href="/services">Services</a><a href="/about">About</a><a href="/#insights">Blog</a>
+        <a href="/home#clients">Clients</a><a href="/services">Services</a><a href="/about">About</a><a href="/home#insights">Blog</a>
         <button className="pill" onClick={onStartProject}>Start a project</button>
       </nav>
     </header>
@@ -61,7 +61,7 @@ function SiteFooter() {
   return (
     <footer className="footer" id="contact">
       <div className="wrap footer-grid"><div><h2>Let’s Talk</h2><a href="mailto:revenue@gmail.com">revenue@gmail.com</a><a href="tel:+919999005697">+91 99990 05697</a><div className="socials"><a href="#top">ig</a><a href="#top">Be</a><a href="#top">in</a><a href="#top">𝕏</a></div></div>
-        <div className="footer-links"><a href="/#work">Work</a><a href="/about">About</a><a href="/#clients">Clients</a><a href="/#insights">Blog</a><a href="/services">Services</a><a href="mailto:revenue@gmail.com">Contact</a><a href="/services">Industries</a></div>
+        <div className="footer-links"><a href="/home#work">Work</a><a href="/about">About</a><a href="/home#clients">Clients</a><a href="/home#insights">Blog</a><a href="/services">Services</a><a href="mailto:revenue@gmail.com">Contact</a><a href="/services">Industries</a></div>
       </div><div className="wrap copyright">© 2026 Revenue Growth <span>Built for what’s next.</span></div>
     </footer>
   )
@@ -217,7 +217,7 @@ const studioImages = [
 ]
 
 function AboutPage() {
-  const goToContact = () => { window.location.href = '/#contact' }
+  const goToContact = () => { window.location.href = '/home#contact' }
 
   return (
     <main id="top" className="about-page">
@@ -279,7 +279,7 @@ function AboutPage() {
 }
 
 function ServicesPage() {
-  const goToContact = () => { window.location.href = '/#contact' }
+  const goToContact = () => { window.location.href = '/home#contact' }
 
   return (
     <main id="top" className="services-page">
@@ -335,6 +335,11 @@ const SITE_URL = 'https://www.revenuegrowth.in'
 
 const seoByPath = {
   '/': {
+    title: 'Coming Soon | Revenue Growth',
+    description: 'Revenue Growth is creating a new digital experience to help ambitious brands grow.',
+    image: bannerMobileTablet,
+  },
+  '/home': {
     title: 'Revenue Growth | B2B Digital Strategy & Growth Marketing',
     description: 'Revenue Growth helps B2B and corporate brands scale through data-driven digital strategy, growth marketing, AI visibility, automation, and conversion optimization.',
     image: bannerMobileTablet,
@@ -362,9 +367,8 @@ function upsertMeta(selector, attributes) {
 
 function Seo({ path }) {
   useEffect(() => {
-    const canonicalPath = path === '/home' ? '/' : path
-    const seo = seoByPath[canonicalPath]
-    const canonicalUrl = `${SITE_URL}${canonicalPath}`
+    const seo = seoByPath[path]
+    const canonicalUrl = `${SITE_URL}${path}`
 
     if (!seo) {
       document.title = 'Page Not Found | Revenue Growth'
@@ -429,7 +433,8 @@ function Root() {
   const path = window.location.pathname.replace(/\/+$/, '') || '/'
 
   let page
-  if (path === '/' || path === '/home') page = <App />
+  if (path === '/') page = <ComingSoonPage />
+  else if (path === '/home') page = <App />
   else if (path === '/about') page = <AboutPage />
   else if (path === '/services') page = <ServicesPage />
   else page = <ComingSoonPage />
