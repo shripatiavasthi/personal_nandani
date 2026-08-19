@@ -11,13 +11,97 @@ import shripatiPortrait from './assets/shripati-avasthi.jpg'
 import transformativeWork from './assets/transformative-work.png'
 
 const services = [
-  ['Growth Marketing', 'Acquire, engage, and retain more customers through measurable, data-backed marketing strategies.'],
-  ['Search & AI Visibility', 'Increase your visibility across Google, search engines, and AI-powered discovery platforms.'],
-  ['Conversion Optimization', 'Turn more website visitors into qualified leads and paying customers.'],
-  ['AI Marketing Automation', 'Automate repetitive workflows, improve customer experiences, and scale your growth smarter.'],
-  ['Founder & Brand Authority', 'Build credibility and attract valuable opportunities through strategic thought leadership.'],
-  ['Marketplace Growth', 'Improve product visibility, conversions, and sales across leading digital marketplaces.'],
+  {
+    number: '01',
+    slug: 'growth-marketing',
+    name: 'Growth Marketing',
+    summary: 'Acquire, engage, and retain more customers through measurable, data-backed marketing strategies.',
+    headline: 'Accelerate Growth with Performance-Driven Marketing',
+    description: [
+      'Growth marketing goes beyond traditional advertising. It focuses on acquiring, engaging, and retaining customers using measurable, data-backed strategies that continuously improve business performance.',
+      'Instead of running isolated campaigns, we create an integrated marketing ecosystem that helps your business grow consistently across every digital touchpoint.',
+    ],
+    offerings: ['Meta Ads (Facebook & Instagram)', 'Google Ads', 'Search Engine Marketing (SEM)', 'Performance Marketing Campaigns', 'Lead Generation Campaigns', 'Marketing Strategy & Analytics', 'Campaign Optimization', 'Customer Acquisition Strategy'],
+    result: 'More qualified leads, lower acquisition costs, and consistent, measurable revenue growth.',
+  },
+  {
+    number: '02',
+    slug: 'search-ai-visibility',
+    name: 'Search & AI Visibility',
+    summary: 'Increase your visibility across Google, search engines, and AI-powered discovery platforms.',
+    headline: 'Get Found Where Your Customers Are Searching',
+    description: [
+      "Search is evolving beyond Google. Today’s customers discover businesses through search engines, AI assistants, voice search, and generative AI platforms.",
+      'We help your brand increase visibility across both traditional search and AI-powered search experiences, ensuring your business is discoverable wherever customers are looking.',
+    ],
+    offerings: ['Search Engine Optimization (SEO)', 'Local SEO', 'Google Business Profile Optimization', 'Technical SEO', 'Content Optimization', 'AI Search Optimization', 'Generative Engine Optimization (GEO)', 'AI Visibility Strategy'],
+    result: 'Higher rankings, increased organic traffic, and stronger visibility across Google and AI platforms.',
+  },
+  {
+    number: '03',
+    slug: 'conversion-optimization',
+    name: 'Conversion Optimization',
+    summary: 'Turn more website visitors into qualified leads and paying customers.',
+    headline: 'Turn More Visitors into Paying Customers',
+    description: [
+      'Driving traffic is only half the equation. The real growth happens when visitors become customers.',
+      'Our Conversion Rate Optimization (CRO) strategies identify friction points across your website and sales funnel, helping improve user experience, increase conversions, and maximize every marketing investment.',
+    ],
+    offerings: ['Conversion Rate Optimization (CRO)', 'Landing Page Design', 'Sales Funnel Strategy', 'Funnel Optimization', 'A/B Testing', 'User Experience Optimization', 'Lead Capture Optimization', 'Website Performance Analysis'],
+    result: 'More leads, higher conversion rates, and increased revenue without increasing ad spend.',
+  },
+  {
+    number: '04',
+    slug: 'ai-marketing-automation',
+    name: 'AI Marketing Automation',
+    summary: 'Automate repetitive workflows, improve customer experiences, and scale your growth smarter.',
+    headline: 'Automate Your Growth. Scale Smarter.',
+    description: [
+      'Businesses shouldn’t waste time on repetitive tasks. AI automation enables faster operations, better customer experiences, and improved marketing performance.',
+      'We design intelligent workflows that automate customer interactions, streamline operations, and help your team focus on growth.',
+    ],
+    offerings: ['Workflow Automation', 'CRM Automation', 'Lead Management', 'Lead Nurturing', 'Email Automation', 'AI Chatbots', 'Marketing Automation', 'Customer Journey Automation'],
+    result: 'Faster response times, better customer engagement, and increased operational efficiency.',
+  },
+  {
+    number: '05',
+    slug: 'founder-brand-authority',
+    name: 'Founder & Brand Authority',
+    summary: 'Build credibility and attract valuable opportunities through strategic thought leadership.',
+    headline: 'Build Trust Before You Sell',
+    description: [
+      'People don’t just buy products—they buy from brands and leaders they trust.',
+      'We help founders and businesses establish authority through strategic content, personal branding, and thought leadership that strengthens credibility and attracts high-value opportunities.',
+    ],
+    offerings: ['Founder Branding', 'LinkedIn Personal Branding', 'Thought Leadership Strategy', 'Executive Content Creation', 'Brand Positioning', 'PR Strategy', 'Reputation Management', 'Content Strategy'],
+    result: 'Increased credibility, stronger brand perception, and higher-quality business opportunities.',
+  },
+  {
+    number: '06',
+    slug: 'marketplace-growth',
+    name: 'Marketplace Growth',
+    summary: 'Improve product visibility, conversions, and sales across leading digital marketplaces.',
+    headline: 'Scale Your Sales Across Digital Marketplaces',
+    description: [
+      'Selling on marketplaces requires more than listing products. Success depends on visibility, optimized product pages, advertising, pricing, and continuous performance improvement.',
+      'We help brands grow their presence across leading marketplaces while improving conversion rates and maximizing sales.',
+    ],
+    offerings: ['Amazon Growth Strategy', 'Marketplace SEO', 'Product Listing Optimization', 'Amazon Advertising', 'Performance Analytics', 'Marketplace Account Management', 'Product Launch Strategy', 'Sales Optimization'],
+    result: 'Higher product visibility, increased marketplace sales, and sustainable revenue growth.',
+  },
 ]
+
+function ServiceCards() {
+  return (
+    <div className="service-grid">
+      {services.map(({ slug, name, summary }) => (
+        <a href={`/services/${slug}`} key={slug} aria-label={`Learn more about ${name}`}>
+          <article><h3>{name}</h3><p>{summary}</p><span className="service-card-link">Explore service <b aria-hidden="true">↗</b></span></article>
+        </a>
+      ))}
+    </div>
+  )
+}
 
 const articles = [
   ['https://images.unsplash.com/photo-1573164574511-73c773193279?auto=format&fit=crop&w=700&q=85', 'Essential Guide to Effective Pay-Per-Click Campaigns'],
@@ -39,7 +123,7 @@ const testimonials = [
 ]
 
 function Logo() {
-  return <a className="logo" href="/home" aria-label="Revenue Growth home"><img src={revenueGrowthLogo} alt="Revenue Growth" /></a>
+  return <a className="logo" href="/" aria-label="Revenue Growth home"><img src={revenueGrowthLogo} alt="Revenue Growth" /></a>
 }
 
 function SiteHeader({ onStartProject }) {
@@ -50,7 +134,7 @@ function SiteHeader({ onStartProject }) {
       <Logo />
       <button className="menu-button" aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>☰</button>
       <nav className={menuOpen ? 'open' : ''} onClick={() => setMenuOpen(false)}>
-        <a href="/home#clients">Clients</a><a href="/services">Services</a><a href="/about">About</a><a href="/home#insights">Blog</a>
+        <a href="/#clients">Clients</a><a href="/services">Services</a><a href="/about">About</a><a href="/#insights">Blog</a>
         <button className="pill" onClick={onStartProject}>Start a project</button>
       </nav>
     </header>
@@ -61,7 +145,7 @@ function SiteFooter() {
   return (
     <footer className="footer" id="contact">
       <div className="wrap footer-grid"><div><h2>Let’s Talk</h2><a href="mailto:revenue@gmail.com">revenue@gmail.com</a><a href="tel:+919999005697">+91 99990 05697</a><div className="socials"><a href="#top">ig</a><a href="#top">Be</a><a href="#top">in</a><a href="#top">𝕏</a></div></div>
-        <div className="footer-links"><a href="/home#work">Work</a><a href="/about">About</a><a href="/home#clients">Clients</a><a href="/home#insights">Blog</a><a href="/services">Services</a><a href="mailto:revenue@gmail.com">Contact</a><a href="/services">Industries</a></div>
+        <div className="footer-links"><a href="/#work">Work</a><a href="/about">About</a><a href="/#clients">Clients</a><a href="/#insights">Blog</a><a href="/services">Services</a><a href="mailto:revenue@gmail.com">Contact</a><a href="/services">Industries</a></div>
       </div><div className="wrap copyright">© 2026 Revenue Growth <span>Built for what’s next.</span></div>
     </footer>
   )
@@ -161,9 +245,7 @@ function App() {
       <section className="services-section" id="services">
         <div className="wrap">
           <h2 className="section-title">Our Services</h2>
-          <div className="service-grid">
-            {services.map(([title, text]) => <a href="/services" key={title} aria-label={`Learn more about ${title}`}><article><h3>{title}</h3><p>{text}</p></article></a>)}
-          </div>
+          <ServiceCards />
         </div>
       </section>
 
@@ -217,7 +299,7 @@ const studioImages = [
 ]
 
 function AboutPage() {
-  const goToContact = () => { window.location.href = '/home#contact' }
+  const goToContact = () => { window.location.href = '/#contact' }
 
   return (
     <main id="top" className="about-page">
@@ -279,7 +361,7 @@ function AboutPage() {
 }
 
 function ServicesPage() {
-  const goToContact = () => { window.location.href = '/home#contact' }
+  const goToContact = () => { window.location.href = '/#contact' }
 
   return (
     <main id="top" className="services-page">
@@ -297,13 +379,65 @@ function ServicesPage() {
       <div className="services-page-gradient">
         <section className="services-overview wrap">
           <p className="services-intro">Our digital marketing services combine strategy, technology, and performance-driven execution to strengthen your online presence and create meaningful business results.</p>
-          <div className="service-grid">
-            {services.map(([title, text]) => <article key={title}><h3>{title}</h3><p>{text}</p></article>)}
-          </div>
+          <ServiceCards />
         </section>
         <MakeItHappen onScheduleCall={goToContact} />
       </div>
 
+      <SiteFooter />
+    </main>
+  )
+}
+
+function ServiceDetailPage({ service }) {
+  const goToContact = () => { window.location.href = '/#contact' }
+
+  return (
+    <main id="top" className="service-detail-page">
+      <SiteHeader onStartProject={goToContact} />
+
+      <section className="service-detail-hero">
+        <div className="service-detail-hero-shape" aria-hidden="true" />
+        <div className="wrap service-detail-heading">
+          <div className="service-detail-kicker"><span>Service</span><strong>{service.number}</strong></div>
+          <h1>{service.name}</h1>
+          <p>{service.headline}</p>
+        </div>
+        <img className="growth-arrow" src={growthArrow} alt="" aria-hidden="true" />
+      </section>
+
+      <section className="service-detail-content">
+        <div className="wrap">
+          <a className="back-to-services" href="/services">← All services</a>
+          <div className="service-description-grid">
+            <span className="eyebrow">What we do</span>
+            <div>{service.description.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
+          </div>
+
+          <div className="service-offerings">
+            <div className="service-offerings-heading">
+              <span className="eyebrow">Capabilities</span>
+              <h2>What We Offer</h2>
+            </div>
+            <ol>{service.offerings.map((offering, index) => <li key={offering}><span>{String(index + 1).padStart(2, '0')}</span>{offering}</li>)}</ol>
+          </div>
+
+          <div className="service-result">
+            <span className="eyebrow">Expected result</span>
+            <p>{service.result}</p>
+          </div>
+
+          <nav className="service-pagination" aria-label="Other services">
+            {services.map(({ number, slug, name }) => (
+              <a className={slug === service.slug ? 'active' : ''} href={`/services/${slug}`} key={slug} aria-current={slug === service.slug ? 'page' : undefined}>
+                <span>{number}</span>{name}
+              </a>
+            ))}
+          </nav>
+        </div>
+      </section>
+
+      <MakeItHappen onScheduleCall={goToContact} />
       <SiteFooter />
     </main>
   )
@@ -335,11 +469,6 @@ const SITE_URL = 'https://www.revenuegrowth.in'
 
 const seoByPath = {
   '/': {
-    title: 'Coming Soon | Revenue Growth',
-    description: 'Revenue Growth is creating a new digital experience to help ambitious brands grow.',
-    image: bannerMobileTablet,
-  },
-  '/home': {
     title: 'Revenue Growth | B2B Digital Strategy & Growth Marketing',
     description: 'Revenue Growth helps B2B and corporate brands scale through data-driven digital strategy, growth marketing, AI visibility, automation, and conversion optimization.',
     image: bannerMobileTablet,
@@ -367,7 +496,12 @@ function upsertMeta(selector, attributes) {
 
 function Seo({ path }) {
   useEffect(() => {
-    const seo = seoByPath[path]
+    const service = services.find(({ slug }) => path === `/services/${slug}`)
+    const seo = service ? {
+      title: `${service.name} Services | Revenue Growth`,
+      description: `${service.headline}. ${service.summary}`,
+      image: aboutBanner,
+    } : seoByPath[path]
     const canonicalUrl = `${SITE_URL}${path}`
 
     if (!seo) {
@@ -431,12 +565,18 @@ function Seo({ path }) {
 
 function Root() {
   const path = window.location.pathname.replace(/\/+$/, '') || '/'
+  const service = services.find(({ slug }) => path === `/services/${slug}`)
+
+  if (path === '/home') {
+    window.location.replace(`/${window.location.hash}`)
+    return null
+  }
 
   let page
-  if (path === '/') page = <ComingSoonPage />
-  else if (path === '/home') page = <App />
+  if (path === '/') page = <App />
   else if (path === '/about') page = <AboutPage />
   else if (path === '/services') page = <ServicesPage />
+  else if (service) page = <ServiceDetailPage service={service} />
   else page = <ComingSoonPage />
 
   return <><Seo path={path} />{page}</>

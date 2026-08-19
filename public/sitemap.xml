@@ -4,12 +4,27 @@
     <loc>https://www.revenuegrowth.in/</loc>
   </url>
   <url>
-    <loc>https://www.revenuegrowth.in/home</loc>
-  </url>
-  <url>
     <loc>https://www.revenuegrowth.in/about</loc>
   </url>
   <url>
     <loc>https://www.revenuegrowth.in/services</loc>
+  </url>
+  <url>
+    <loc>https://www.revenuegrowth.in/services/growth-marketing</loc>
+  </url>
+  <url>
+    <loc>https://www.revenuegrowth.in/services/search-ai-visibility</loc>
+  </url>
+  <url>
+    <loc>https://www.revenuegrowth.in/services/conversion-optimization</loc>
+  </url>
+  <url>
+    <loc>https://www.revenuegrowth.in/services/ai-marketing-automation</loc>
+  </url>
+  <url>
+    <loc>https://www.revenuegrowth.in/services/founder-brand-authority</loc>
+  </url>
+  <url>
+    <loc>https://www.revenuegrowth.in/services/marketplace-growth</loc>
   </url>
 </urlset>
