@@ -10,6 +10,12 @@ import nandaniPortrait from './assets/nandani.jpg'
 import shripatiPortrait from './assets/shripati-avasthi.jpg'
 import transformativeWork from './assets/transformative-work.png'
 
+const socialLinks = [
+  { label: 'Instagram', text: 'ig', href: 'https://www.instagram.com/revenuegrowth009/' },
+  { label: 'Facebook', text: 'fb', href: 'https://www.facebook.com/profile.php?id=61592491995696' },
+  { label: 'LinkedIn', text: 'in', href: 'https://www.linkedin.com/company/revenue-growth-009/?viewAsMember=true' },
+]
+
 const services = [
   {
     number: '01',
@@ -144,7 +150,7 @@ function SiteHeader({ onStartProject }) {
 function SiteFooter() {
   return (
     <footer className="footer" id="contact">
-      <div className="wrap footer-grid"><div><h2>Let’s Talk</h2><a href="mailto:revenue@gmail.com">revenue@gmail.com</a><a href="tel:+919999005697">+91 99990 05697</a><div className="socials"><a href="#top">ig</a><a href="#top">Be</a><a href="#top">in</a><a href="#top">𝕏</a></div></div>
+      <div className="wrap footer-grid"><div><h2>Let’s Talk</h2><a href="mailto:revenue@gmail.com">revenue@gmail.com</a><a href="tel:+919999005697">+91 99990 05697</a><div className="socials">{socialLinks.map(({ label, text, href }) => <a key={label} href={href} aria-label={label} target="_blank" rel="noopener noreferrer">{text}</a>)}</div></div>
         <div className="footer-links"><a href="/#work">Work</a><a href="/about">About</a><a href="/#clients">Clients</a><a href="/#insights">Blog</a><a href="/services">Services</a><a href="mailto:revenue@gmail.com">Contact</a><a href="/services">Industries</a></div>
       </div><div className="wrap copyright">© 2026 Revenue Growth <span>Built for what’s next.</span></div>
     </footer>
@@ -471,7 +477,7 @@ const seoByPath = {
   '/': {
     title: 'Revenue Growth | B2B Digital Strategy & Growth Marketing',
     description: 'Revenue Growth helps B2B and corporate brands scale through data-driven digital strategy, growth marketing, AI visibility, automation, and conversion optimization.',
-    image: bannerMobileTablet,
+    image: '/social-preview.jpg',
   },
   '/about': {
     title: 'About Revenue Growth | Digital Strategy Agency',
@@ -545,6 +551,7 @@ function Seo({ path }) {
           '@type': 'Organization',
           '@id': `${SITE_URL}/#organization`,
           name: 'Revenue Growth',
+          sameAs: socialLinks.map(({ href }) => href),
           url: `${SITE_URL}/`,
           email: 'revenue@gmail.com',
           telephone: '+91 99990 05697',
