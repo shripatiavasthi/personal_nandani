@@ -475,19 +475,81 @@ const SITE_URL = 'https://www.revenuegrowth.in'
 
 const seoByPath = {
   '/': {
-    title: 'Revenue Growth | B2B Digital Strategy & Growth Marketing',
-    description: 'Revenue Growth helps B2B and corporate brands scale through data-driven digital strategy, growth marketing, AI visibility, automation, and conversion optimization.',
+    title: 'B2B Digital Strategy & Growth Marketing Agency | Revenue Growth',
+    description: 'Revenue Growth is a B2B digital marketing agency driving predictable results through AI automation, SEO, and performance marketing. Start your growth journey.',
+    ogTitle: 'B2B Digital Strategy & Growth Marketing Agency | Revenue Growth',
+    ogDescription: 'We build scalable marketing systems that generate qualified leads and drive sustainable revenue for startups and enterprises.',
     image: '/social-preview.jpg',
   },
   '/about': {
-    title: 'About Revenue Growth | Digital Strategy Agency',
-    description: 'Meet Revenue Growth, a digital strategy agency that turns complex market dynamics into scalable revenue pipelines for B2B and corporate brands.',
+    title: 'About Revenue Growth | B2B Digital Strategy Experts',
+    description: 'Meet the Revenue Growth team. We believe marketing should create measurable business outcomes, not just vanity metrics. Learn about our data-driven approach.',
+    ogTitle: 'About Revenue Growth | B2B Digital Strategy Experts',
+    ogDescription: 'Meet the team building systems that help businesses scale with confidence.',
     image: aboutBanner,
   },
   '/services': {
-    title: 'Digital Growth Services | Revenue Growth',
-    description: 'Explore growth marketing, search and AI visibility, conversion optimization, AI automation, brand authority, and marketplace growth services.',
+    title: 'Digital Marketing & AI Growth Services | Revenue Growth',
+    description: 'Explore our comprehensive B2B growth services, including AI marketing automation, SEO visibility, conversion optimization, and performance marketing.',
+    ogTitle: 'Digital Marketing & AI Growth Services | Revenue Growth',
+    ogDescription: 'Explore our comprehensive B2B growth services designed to drive measurable business outcomes.',
     image: aboutBanner,
+  },
+  '/services/growth-marketing': {
+    title: 'B2B Growth Marketing Services | Scale Your Revenue',
+    description: "Acquire, engage, and retain more customers with Revenue Growth's data-backed growth marketing and performance strategies. Drive measurable business outcomes.",
+    ogTitle: 'B2B Growth Marketing Services | Revenue Growth',
+    ogDescription: 'Acquire, engage, and retain more customers with data-backed performance strategies.',
+    image: aboutBanner,
+  },
+  '/services/search-ai-visibility': {
+    title: 'Search & AI Visibility Services (SEO) | Revenue Growth',
+    description: "Increase your brand's visibility across Google and AI-powered discovery platforms. Future-proof your B2B search presence with Revenue Growth.",
+    ogTitle: 'Search & AI Visibility Services',
+    ogDescription: 'Dominate Google and emerging AI-powered search platforms.',
+    image: aboutBanner,
+  },
+  '/services/conversion-optimization': {
+    title: 'Conversion Rate Optimization (CRO) Agency | Revenue Growth',
+    description: 'Turn more website visitors into qualified leads and paying customers. Our CRO services optimize your digital touchpoints for maximum ROI.',
+    ogTitle: 'Conversion Rate Optimization (CRO) Agency',
+    ogDescription: 'Turn more website visitors into qualified leads and paying customers.',
+    image: aboutBanner,
+  },
+  '/services/ai-marketing-automation': {
+    title: 'AI Marketing Automation Services | Revenue Growth',
+    description: 'Automate repetitive workflows and scale your growth smarter. We implement AI marketing automation systems that improve customer experiences and save time.',
+    ogTitle: 'AI Marketing Automation Services',
+    ogDescription: 'Automate repetitive workflows and scale your growth smarter with AI.',
+    image: aboutBanner,
+  },
+  '/services/founder-brand-authority': {
+    title: 'Founder Personal Branding & Authority Building Services',
+    description: 'Build credibility and attract valuable B2B opportunities through strategic thought leadership and personal branding tailored for founders and CEOs.',
+    ogTitle: 'Founder Personal Branding Services',
+    ogDescription: 'Build credibility and attract valuable B2B opportunities through strategic thought leadership.',
+    image: aboutBanner,
+  },
+  '/services/marketplace-growth': {
+    title: 'Marketplace Growth & Optimization Services | Revenue Growth',
+    description: 'Improve product visibility, conversions, and sales across leading digital marketplaces with our tailored marketplace growth strategies.',
+    ogTitle: 'Marketplace Growth & Optimization Services',
+    ogDescription: 'Improve product visibility, conversions, and sales across leading digital marketplaces.',
+    image: aboutBanner,
+  },
+  '/clients': {
+    title: 'Our Clients & Case Studies | Revenue Growth Agency',
+    description: 'See how Revenue Growth delivers measurable outcomes. Read our case studies and testimonials from B2B partners like Global Infra Solutions and Panlex LLP.',
+    ogTitle: 'Our Clients & Case Studies | Revenue Growth',
+    ogDescription: 'See how Revenue Growth delivers measurable outcomes for our clients.',
+    image: '/social-preview.jpg',
+  },
+  '/contact': {
+    title: 'Contact Revenue Growth | Start Your Digital Marketing Project',
+    description: 'Ready for your next stage of growth? Schedule a call with Revenue Growth to discuss digital strategy, SEO, and AI marketing solutions for your business.',
+    ogTitle: 'Contact Revenue Growth',
+    ogDescription: 'Ready for your next stage of growth? Schedule a call with our team.',
+    image: '/social-preview.jpg',
   },
 }
 
@@ -502,12 +564,7 @@ function upsertMeta(selector, attributes) {
 
 function Seo({ path }) {
   useEffect(() => {
-    const service = services.find(({ slug }) => path === `/services/${slug}`)
-    const seo = service ? {
-      title: `${service.name} Services | Revenue Growth`,
-      description: `${service.headline}. ${service.summary}`,
-      image: aboutBanner,
-    } : seoByPath[path]
+    const seo = seoByPath[path]
     const canonicalUrl = `${SITE_URL}${path}`
 
     if (!seo) {
@@ -519,14 +576,14 @@ function Seo({ path }) {
     const imageUrl = new URL(seo.image, SITE_URL).href
     document.title = seo.title
     upsertMeta('meta[name="description"]', { name: 'description', content: seo.description })
-    upsertMeta('meta[name="robots"]', { name: 'robots', content: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' })
-    upsertMeta('meta[property="og:title"]', { property: 'og:title', content: seo.title })
-    upsertMeta('meta[property="og:description"]', { property: 'og:description', content: seo.description })
+    upsertMeta('meta[name="robots"]', { name: 'robots', content: 'index, follow' })
+    upsertMeta('meta[property="og:title"]', { property: 'og:title', content: seo.ogTitle })
+    upsertMeta('meta[property="og:description"]', { property: 'og:description', content: seo.ogDescription })
     upsertMeta('meta[property="og:url"]', { property: 'og:url', content: canonicalUrl })
     upsertMeta('meta[property="og:image"]', { property: 'og:image', content: imageUrl })
     upsertMeta('meta[property="og:image:alt"]', { property: 'og:image:alt', content: 'Revenue Growth digital strategy agency' })
-    upsertMeta('meta[name="twitter:title"]', { name: 'twitter:title', content: seo.title })
-    upsertMeta('meta[name="twitter:description"]', { name: 'twitter:description', content: seo.description })
+    upsertMeta('meta[name="twitter:title"]', { name: 'twitter:title', content: seo.ogTitle })
+    upsertMeta('meta[name="twitter:description"]', { name: 'twitter:description', content: seo.ogDescription })
     upsertMeta('meta[name="twitter:image"]', { name: 'twitter:image', content: imageUrl })
 
     let canonical = document.head.querySelector('link[rel="canonical"]')
