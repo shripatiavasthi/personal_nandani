@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
-import growthArrow from './assets/arrow.png'
-import aboutBanner from './assets/banners/banner-2.jpg'
-import bannerMobileTablet from './assets/banners/banner-mobile-tablet.jpg'
-import gisProject from './assets/work/gis.png'
-import panlexProject from './assets/work/panlex.png'
-import revenueGrowthLogo from './assets/r-g-logo.png'
+import growthArrow from './assets/arrow.webp'
+import aboutBanner from './assets/banners/banner-2.webp'
+import bannerMobileTablet from './assets/banners/banner-mobile-tablet.webp'
+import gisProject from './assets/work/gis.webp'
+import panlexProject from './assets/work/panlex.webp'
+import revenueGrowthLogo from './assets/r-g-logo.webp'
 import nandaniPortrait from './assets/nandani.jpg'
-import shripatiPortrait from './assets/shripati-avasthi.jpg'
-import transformativeWork from './assets/transformative-work.png'
+import shripatiPortrait from './assets/shripati-avasthi.webp'
+import transformativeWork from './assets/transformative-work.webp'
 
 const socialLinks = [
   { label: 'Instagram', text: 'ig', href: 'https://www.instagram.com/revenuegrowth009/' },
