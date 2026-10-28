@@ -14,3 +14,7 @@ npm run dev
 ```bash
 npm run build
 ```
+
+## Deployment
+
+The site is deployed on Vercel from the `main` branch.
