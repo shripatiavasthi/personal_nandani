@@ -79,7 +79,7 @@ nav a:hover:after { width:100%; }
 .services-overview { padding-top:95px; }
 .services-intro { max-width:900px; margin:0 0 70px; font-size:21px; line-height:1.6; }
 .services-page .service-grid article { background:rgba(255,255,255,.08); }
-.services-page .service-grid article:hover { color:white; border-color:rgba(255,255,255,.75); background-image:linear-gradient(135deg,rgba(70,58,139,.94),rgba(119,48,112,.9)),url('./assets/banners/banner-mobile-tablet.jpg'); background-position:center; background-size:cover; box-shadow:0 16px 30px rgba(65,44,105,.25); }
+.services-page .service-grid article:hover { color:white; border-color:rgba(255,255,255,.75); background-image:linear-gradient(135deg,rgba(70,58,139,.94),rgba(119,48,112,.9)),url('./assets/banners/banner-mobile-tablet.webp'); background-position:center; background-size:cover; box-shadow:0 16px 30px rgba(65,44,105,.25); }
 
 /* Service detail page */
 .service-detail-page { overflow:hidden; }
