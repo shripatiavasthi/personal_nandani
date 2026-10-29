@@ -161,7 +161,7 @@ function HeroSection({ onScheduleCall, about = false }) {
   return (
       <section className={`hero-section ${about ? 'about-page-hero' : 'home-hero'}`}>
         <picture className="hero-banner">
-          <img src={about ? aboutBanner : bannerMobileTablet} alt="" aria-hidden="true" />
+          <img src={about ? aboutBanner : bannerMobileTablet} alt="" aria-hidden="true" fetchPriority="high" />
         </picture>
       {about ? (
         <div className="hero-copy about-hero-copy">
@@ -239,7 +239,7 @@ function App() {
 
       <section className="about wrap" id="about">
         <div className="about-image">
-          <img src={transformativeWork} alt="Creative professional working at a laptop" />
+          <img loading="lazy" decoding="async" src={transformativeWork} alt="Creative professional working at a laptop" />
         </div>
         <div className="about-copy">
           <p>We believe marketing should create measurable business outcomes—not just impressions, clicks, or followers.</p>
@@ -259,8 +259,8 @@ function App() {
         <div className="wrap">
           <h2 className="section-title light">See Our Work</h2>
           <div className="work-grid">
-            <a href="#contact" className="project" aria-label="View the Global Infra Solutions project"><img src={gisProject} alt="Global Infra Solutions interior project" /></a>
-            <a href="#contact" className="project" aria-label="View the Panlex LLP project"><img src={panlexProject} alt="Panlex LLP law firm project" /></a>
+            <a href="#contact" className="project" aria-label="View the Global Infra Solutions project"><img loading="lazy" decoding="async" src={gisProject} alt="Global Infra Solutions interior project" /></a>
+            <a href="#contact" className="project" aria-label="View the Panlex LLP project"><img loading="lazy" decoding="async" src={panlexProject} alt="Panlex LLP law firm project" /></a>
           </div>
         </div>
       </section>
@@ -282,7 +282,7 @@ function App() {
 
       <section className="insights" id="insights">
         <div className="wrap"><h2 className="section-title light centered">News + Insights</h2><div className="article-grid">
-          {articles.map(([image, title], i) => <a href="#contact" key={title}><img src={image} alt="" /><span>{i === 2 ? 'AI & Innovation' : 'Growth Strategy'}</span><h3>{title}</h3><b>Read insight ↗</b></a>)}
+          {articles.map(([image, title], i) => <a href="#contact" key={title}><img loading="lazy" decoding="async" src={image} alt="" /><span>{i === 2 ? 'AI & Innovation' : 'Growth Strategy'}</span><h3>{title}</h3><b>Read insight ↗</b></a>)}
         </div></div>
       </section>
 
@@ -352,14 +352,14 @@ function AboutPage() {
 
           <div className="about-team">
             <h2 className="about-heading">Meet the team</h2>
-            <div className="team-grid">{team.map(([image, name, designation]) => <article key={name}><img src={image} alt={`${name}, ${designation} at Revenue Growth`} /><div><h3>{name}</h3><p>{designation}</p></div></article>)}</div>
+            <div className="team-grid">{team.map(([image, name, designation]) => <article key={name}><img loading="lazy" decoding="async" src={image} alt={`${name}, ${designation} at Revenue Growth`} /><div><h3>{name}</h3><p>{designation}</p></div></article>)}</div>
           </div>
         </div>
       </section>
 
       <MakeItHappen onScheduleCall={goToContact} />
 
-      <section className="studio wrap"><div className="studio-gallery">{studioImages.map((image, index) => <a key={image} href={image} target="_blank" rel="noreferrer" aria-label={`View workspace image ${index + 1}`}><img src={image} alt={index === 0 ? 'Revenue Growth team workspace' : ''} /></a>)}</div></section>
+      <section className="studio wrap"><div className="studio-gallery">{studioImages.map((image, index) => <a key={image} href={image} target="_blank" rel="noreferrer" aria-label={`View workspace image ${index + 1}`}><img loading="lazy" decoding="async" src={image} alt={index === 0 ? 'Revenue Growth team workspace' : ''} /></a>)}</div></section>
 
       <SiteFooter />
     </main>
