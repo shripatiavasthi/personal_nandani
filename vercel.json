@@ -1,8 +1,7 @@
 {
-  "rewrites": [
-    {
-      "source": "/((?!\\.well-known/).*)",
-      "destination": "/index.html"
-    }
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/home", "destination": "/", "permanent": true }
   ]
 }
