@@ -621,15 +621,30 @@ function structuredDataFor(path) {
   const pageUrl = path === '/' ? `${SITE_URL}/` : `${SITE_URL}${path}`
   const graph = [
     {
-      '@type': 'Organization',
+      '@type': ['Organization', 'ProfessionalService'],
       '@id': `${SITE_URL}/#organization`,
       name: 'Revenue Growth',
       sameAs: socialLinks.map(({ href }) => href),
       url: `${SITE_URL}/`,
       logo: `${SITE_URL}/favicon.png`,
+      image: `${SITE_URL}/social-preview.jpg`,
       email: 'nandni@revenuegrowth.in',
       telephone: '+91 99990 05697',
       areaServed: 'IN',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Tower 4, RPS Infinia, 12th Avenue, 12/6 Milestone, Mathura Road, Sarai Khawaja',
+        addressLocality: 'Faridabad',
+        addressRegion: 'Haryana',
+        postalCode: '121013',
+        addressCountry: 'IN',
+      },
+      openingHoursSpecification: [{
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        opens: '10:00',
+        closes: '19:00',
+      }],
     },
     {
       '@type': 'WebSite',
