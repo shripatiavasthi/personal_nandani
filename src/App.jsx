@@ -639,6 +639,12 @@ function structuredDataFor(path) {
         postalCode: '121013',
         addressCountry: 'IN',
       },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: 28.472816,
+        longitude: 77.305261,
+      },
+      hasMap: 'https://www.google.com/maps?q=28.472816,77.305261',
       openingHoursSpecification: [{
         '@type': 'OpeningHoursSpecification',
         dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
