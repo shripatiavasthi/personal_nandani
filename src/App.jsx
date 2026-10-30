@@ -594,41 +594,71 @@ function Seo({ path }) {
     }
     canonical.href = canonicalUrl
 
-    let structuredData = document.head.querySelector('#revenue-growth-structured-data')
-    if (!structuredData) {
-      structuredData = document.createElement('script')
-      structuredData.id = 'revenue-growth-structured-data'
-      structuredData.type = 'application/ld+json'
-      document.head.appendChild(structuredData)
+    let structuredDataScript = document.head.querySelector('#revenue-growth-structured-data')
+    if (!structuredDataScript) {
+      structuredDataScript = document.createElement('script')
+      structuredDataScript.id = 'revenue-growth-structured-data'
+      structuredDataScript.type = 'application/ld+json'
+      document.head.appendChild(structuredDataScript)
     }
-    structuredData.textContent = JSON.stringify({
-      '@context': 'https://schema.org',
-      '@graph': [
-        {
-          '@type': 'Organization',
-          '@id': `${SITE_URL}/#organization`,
-          name: 'Revenue Growth',
-          sameAs: socialLinks.map(({ href }) => href),
-          url: `${SITE_URL}/`,
-          email: 'nandni@revenuegrowth.in',
-          telephone: '+91 99990 05697',
-        },
-        {
-          '@type': 'WebSite',
-          '@id': `${SITE_URL}/#website`,
-          url: `${SITE_URL}/`,
-          name: 'Revenue Growth',
-          publisher: { '@id': `${SITE_URL}/#organization` },
-        },
-      ],
-    })
+    structuredDataScript.textContent = JSON.stringify(structuredData)
   }, [path])
 
   return null
 }
 
-function Root() {
-  const path = window.location.pathname.replace(/\/+$/, '') || '/'
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${SITE_URL}/#organization`,
+      name: 'Revenue Growth',
+      sameAs: socialLinks.map(({ href }) => href),
+      url: `${SITE_URL}/`,
+      email: 'nandni@revenuegrowth.in',
+      telephone: '+91 99990 05697',
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}/#website`,
+      url: `${SITE_URL}/`,
+      name: 'Revenue Growth',
+      publisher: { '@id': `${SITE_URL}/#organization` },
+    },
+  ],
+}
+
+const escapeHtml = (value) => value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+
+// Head tags for the build-time prerender; mirrors what <Seo> sets in the browser.
+export function renderSeoHead(path) {
+  const seo = seoByPath[path]
+  if (!seo) {
+    return '<title>Page Not Found | Revenue Growth</title>\n    <meta name="robots" content="noindex, follow" />'
+  }
+  const canonicalUrl = `${SITE_URL}${path}`
+  const imageUrl = new URL(seo.image, SITE_URL).href
+  return [
+    `<title>${escapeHtml(seo.title)}</title>`,
+    `<meta name="description" content="${escapeHtml(seo.description)}" />`,
+    '<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />',
+    `<link rel="canonical" href="${canonicalUrl}" />`,
+    `<meta property="og:url" content="${canonicalUrl}" />`,
+    `<meta property="og:title" content="${escapeHtml(seo.ogTitle)}" />`,
+    `<meta property="og:description" content="${escapeHtml(seo.ogDescription)}" />`,
+    `<meta property="og:image" content="${imageUrl}" />`,
+    `<meta name="twitter:title" content="${escapeHtml(seo.ogTitle)}" />`,
+    `<meta name="twitter:description" content="${escapeHtml(seo.ogDescription)}" />`,
+    `<meta name="twitter:image" content="${imageUrl}" />`,
+    `<script type="application/ld+json" id="revenue-growth-structured-data">${JSON.stringify(structuredData).replace(/</g, '\\u003c')}</script>`,
+  ].join('\n    ')
+}
+
+export const prerenderPaths = Object.keys(seoByPath)
+
+function Root({ path: pathProp }) {
+  const path = pathProp ?? (window.location.pathname.replace(/\/+$/, '') || '/')
   const service = services.find(({ slug }) => path === `/services/${slug}`)
 
   if (path === '/home') {
