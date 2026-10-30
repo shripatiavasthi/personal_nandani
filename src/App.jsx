@@ -282,7 +282,7 @@ function App() {
 
       <section className="insights" id="insights">
         <div className="wrap"><h2 className="section-title light centered">News + Insights</h2><div className="article-grid">
-          {articles.map(([image, title], i) => <a href="#contact" key={title}><img loading="lazy" decoding="async" src={image} alt="" /><span>{i === 2 ? 'AI & Innovation' : 'Growth Strategy'}</span><h3>{title}</h3><b>Read insight ↗</b></a>)}
+          {articles.map(([image, title], i) => <a href="#contact" key={title}><img loading="lazy" decoding="async" src={image} alt={title} /><span>{i === 2 ? 'AI & Innovation' : 'Growth Strategy'}</span><h3>{title}</h3><b>Read insight ↗</b></a>)}
         </div></div>
       </section>
 
@@ -359,7 +359,7 @@ function AboutPage() {
 
       <MakeItHappen onScheduleCall={goToContact} />
 
-      <section className="studio wrap"><div className="studio-gallery">{studioImages.map((image, index) => <a key={image} href={image} target="_blank" rel="noreferrer" aria-label={`View workspace image ${index + 1}`}><img loading="lazy" decoding="async" src={image} alt={index === 0 ? 'Revenue Growth team workspace' : ''} /></a>)}</div></section>
+      <section className="studio wrap"><div className="studio-gallery">{studioImages.map((image, index) => <a key={image} href={image} target="_blank" rel="noreferrer" aria-label={`View workspace image ${index + 1}`}><img loading="lazy" decoding="async" src={image} alt={`Revenue Growth team workspace ${index + 1}`} /></a>)}</div></section>
 
       <SiteFooter />
     </main>
@@ -601,23 +601,35 @@ function Seo({ path }) {
       structuredDataScript.type = 'application/ld+json'
       document.head.appendChild(structuredDataScript)
     }
-    structuredDataScript.textContent = JSON.stringify(structuredData)
+    structuredDataScript.textContent = JSON.stringify(structuredDataFor(path))
   }, [path])
 
   return null
 }
 
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@graph': [
+const breadcrumbNames = { '/about': 'About', '/services': 'Services', '/clients': 'Clients', '/contact': 'Contact' }
+
+function breadcrumbsFor(path) {
+  const crumbs = [['Home', '/']]
+  const service = services.find(({ slug }) => path === `/services/${slug}`)
+  if (service) crumbs.push(['Services', '/services'], [service.name, path])
+  else if (breadcrumbNames[path]) crumbs.push([breadcrumbNames[path], path])
+  return crumbs
+}
+
+function structuredDataFor(path) {
+  const pageUrl = path === '/' ? `${SITE_URL}/` : `${SITE_URL}${path}`
+  const graph = [
     {
       '@type': 'Organization',
       '@id': `${SITE_URL}/#organization`,
       name: 'Revenue Growth',
       sameAs: socialLinks.map(({ href }) => href),
       url: `${SITE_URL}/`,
+      logo: `${SITE_URL}/favicon.png`,
       email: 'nandni@revenuegrowth.in',
       telephone: '+91 99990 05697',
+      areaServed: 'IN',
     },
     {
       '@type': 'WebSite',
@@ -626,7 +638,49 @@ const structuredData = {
       name: 'Revenue Growth',
       publisher: { '@id': `${SITE_URL}/#organization` },
     },
-  ],
+  ]
+
+  const crumbs = breadcrumbsFor(path)
+  if (crumbs.length > 1) {
+    graph.push({
+      '@type': 'BreadcrumbList',
+      itemListElement: crumbs.map(([name, href], index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name,
+        item: href === '/' ? `${SITE_URL}/` : `${SITE_URL}${href}`,
+      })),
+    })
+  }
+
+  const service = services.find(({ slug }) => path === `/services/${slug}`)
+  if (service) {
+    graph.push({
+      '@type': 'Service',
+      '@id': `${pageUrl}#service`,
+      name: service.name,
+      serviceType: service.name,
+      description: service.summary,
+      url: pageUrl,
+      provider: { '@id': `${SITE_URL}/#organization` },
+      areaServed: 'IN',
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: `${service.name} services`,
+        itemListElement: service.offerings.map((offering) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: offering } })),
+      },
+    })
+  }
+
+  if (path === '/services') {
+    graph.push({
+      '@type': 'ItemList',
+      name: 'Revenue Growth services',
+      itemListElement: services.map(({ name, slug }, index) => ({ '@type': 'ListItem', position: index + 1, name, url: `${SITE_URL}/services/${slug}` })),
+    })
+  }
+
+  return { '@context': 'https://schema.org', '@graph': graph }
 }
 
 const escapeHtml = (value) => value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -651,7 +705,7 @@ export function renderSeoHead(path) {
     `<meta name="twitter:title" content="${escapeHtml(seo.ogTitle)}" />`,
     `<meta name="twitter:description" content="${escapeHtml(seo.ogDescription)}" />`,
     `<meta name="twitter:image" content="${imageUrl}" />`,
-    `<script type="application/ld+json" id="revenue-growth-structured-data">${JSON.stringify(structuredData).replace(/</g, '\\u003c')}</script>`,
+    `<script type="application/ld+json" id="revenue-growth-structured-data">${JSON.stringify(structuredDataFor(path)).replace(/</g, '\\u003c')}</script>`,
   ].join('\n    ')
 }
 
