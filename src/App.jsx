@@ -150,8 +150,8 @@ function SiteHeader({ onStartProject }) {
 function SiteFooter() {
   return (
     <footer className="footer" id="contact">
-      <div className="wrap footer-grid"><div><h2>Let’s Talk</h2><a href="mailto:revenue@gmail.com">revenue@gmail.com</a><a href="tel:+919999005697">+91 99990 05697</a><div className="socials">{socialLinks.map(({ label, text, href }) => <a key={label} href={href} aria-label={label} target="_blank" rel="noopener noreferrer">{text}</a>)}</div></div>
-        <div className="footer-links"><a href="/#work">Work</a><a href="/about">About</a><a href="/#clients">Clients</a><a href="/#insights">Blog</a><a href="/services">Services</a><a href="mailto:revenue@gmail.com">Contact</a><a href="/services">Industries</a></div>
+      <div className="wrap footer-grid"><div><h2>Let’s Talk</h2><a href="mailto:nandni@revenuegrowth.in">nandni@revenuegrowth.in</a><a href="tel:+919999005697">+91 99990 05697</a><div className="socials">{socialLinks.map(({ label, text, href }) => <a key={label} href={href} aria-label={label} target="_blank" rel="noopener noreferrer">{text}</a>)}</div></div>
+        <div className="footer-links"><a href="/#work">Work</a><a href="/about">About</a><a href="/#clients">Clients</a><a href="/#insights">Blog</a><a href="/services">Services</a><a href="mailto:nandni@revenuegrowth.in">Contact</a><a href="/services">Industries</a></div>
       </div><div className="wrap copyright">© 2026 Revenue Growth <span>Built for what’s next.</span></div>
     </footer>
   )
@@ -461,11 +461,11 @@ function ComingSoonPage() {
         <p className="coming-soon-eyebrow">Something exciting is on the way</p>
         <h1>Coming <em>Soon</em></h1>
         <p className="coming-soon-message">We’re creating a new digital experience to help ambitious brands grow. Stay tuned.</p>
-        <a className="pill coming-soon-contact" href="mailto:revenue@gmail.com">Get in touch</a>
+        <a className="pill coming-soon-contact" href="mailto:nandni@revenuegrowth.in">Get in touch</a>
       </section>
       <footer className="coming-soon-footer">
         <span>© 2026 Revenue Growth</span>
-        <a href="mailto:revenue@gmail.com">revenue@gmail.com</a>
+        <a href="mailto:nandni@revenuegrowth.in">nandni@revenuegrowth.in</a>
       </footer>
     </main>
   )
@@ -610,7 +610,7 @@ function Seo({ path }) {
           name: 'Revenue Growth',
           sameAs: socialLinks.map(({ href }) => href),
           url: `${SITE_URL}/`,
-          email: 'revenue@gmail.com',
+          email: 'nandni@revenuegrowth.in',
           telephone: '+91 99990 05697',
         },
         {
