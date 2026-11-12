@@ -3,9 +3,10 @@ import './App.css'
 import growthArrow from './assets/arrow.webp'
 import aboutBanner from './assets/banners/banner-2.webp'
 import bannerMobileTablet from './assets/banners/banner-mobile-tablet.webp'
+import bannerMobile800 from './assets/banners/banner-mobile-800.webp'
 import gisProject from './assets/work/gis.webp'
 import panlexProject from './assets/work/panlex.webp'
-import revenueGrowthLogo from './assets/r-g-logo.webp'
+import revenueGrowthLogo from './assets/r-g-logo-400.webp'
 import nandaniPortrait from './assets/nandani.jpg'
 import shripatiPortrait from './assets/shripati-avasthi.webp'
 import transformativeWork from './assets/transformative-work.webp'
@@ -161,7 +162,7 @@ function HeroSection({ onScheduleCall, about = false }) {
   return (
       <section className={`hero-section ${about ? 'about-page-hero' : 'home-hero'}`}>
         <picture className="hero-banner">
-          <img src={about ? aboutBanner : bannerMobileTablet} alt="" aria-hidden="true" fetchPriority="high" />
+          <img src={about ? aboutBanner : bannerMobileTablet} srcSet={about ? undefined : `${bannerMobile800} 800w, ${bannerMobileTablet} 1900w`} sizes="100vw" alt="" aria-hidden="true" fetchPriority="high" />
         </picture>
       {about ? (
         <div className="hero-copy about-hero-copy">
