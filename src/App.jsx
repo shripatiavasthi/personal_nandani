@@ -113,17 +113,19 @@ function ServiceCards() {
 
 const homeInsights = posts.slice(0, 3).map(({ slug, cover, title, category }) => ({ href: `/blog/${slug}`, image: cover, title, category }))
 
-const WHATSAPP_NUMBER = '919999005697'
+// Web3Forms emails each lead to the inbox this key was created for. The key is public by design.
+const WEB3FORMS_ACCESS_KEY = '106ddd05-abdd-4cf6-ad52-270df67f5c96'
 
 // Every "Schedule a call" / "Start a project" button opens the lead form rendered by <Root>.
 const openLeadForm = () => window.dispatchEvent(new Event('open-lead-form'))
 
 function LeadForm() {
   const [open, setOpen] = useState(false)
+  const [status, setStatus] = useState('idle')
   const firstField = useRef(null)
 
   useEffect(() => {
-    const show = () => setOpen(true)
+    const show = () => { setStatus('idle'); setOpen(true) }
     window.addEventListener('open-lead-form', show)
     return () => window.removeEventListener('open-lead-form', show)
   }, [])
@@ -138,26 +140,53 @@ function LeadForm() {
 
   if (!open) return null
 
-  const submit = (event) => {
+  const submit = async (event) => {
     event.preventDefault()
-    const { name, phone, email } = Object.fromEntries(new FormData(event.currentTarget))
-    const message = `Hi Revenue Growth, I'd like to schedule a call.\n\nName: ${name}\nPhone: ${phone}\nEmail: ${email}`
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank', 'noopener')
-    setOpen(false)
+    const { name, phone, email, botcheck } = Object.fromEntries(new FormData(event.currentTarget))
+    setStatus('sending')
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `New lead from revenuegrowth.in: ${name}`,
+          from_name: 'Revenue Growth website',
+          name, phone, email, botcheck,
+          page: window.location.href,
+        }),
+      })
+      const result = await response.json()
+      setStatus(result.success ? 'sent' : 'error')
+    } catch {
+      setStatus('error')
+    }
   }
 
   return (
     <div className="lead-overlay" onClick={(event) => { if (event.target === event.currentTarget) setOpen(false) }}>
-      <form className="lead-form" onSubmit={submit} role="dialog" aria-modal="true" aria-labelledby="lead-form-title">
-        <button type="button" className="lead-close" onClick={() => setOpen(false)} aria-label="Close">×</button>
-        <span className="eyebrow">Schedule a call</span>
-        <h2 id="lead-form-title">Let’s grow your business</h2>
-        <p>Share your details and we’ll get back to you on WhatsApp.</p>
-        <label>Name<input ref={firstField} name="name" autoComplete="name" required /></label>
-        <label>Phone<input name="phone" type="tel" autoComplete="tel" inputMode="tel" pattern="[0-9+\s\-]{8,15}" title="Enter a valid phone number" required /></label>
-        <label>Email<input name="email" type="email" autoComplete="email" required /></label>
-        <button type="submit" className="pill">Send on WhatsApp</button>
-      </form>
+      {status === 'sent' ? (
+        <div className="lead-form" role="dialog" aria-modal="true" aria-labelledby="lead-form-title">
+          <button type="button" className="lead-close" onClick={() => setOpen(false)} aria-label="Close">×</button>
+          <span className="eyebrow">Thank you</span>
+          <h2 id="lead-form-title">We’ve got your details</h2>
+          <p>Our team will call you shortly.</p>
+          <button type="button" className="pill" onClick={() => setOpen(false)}>Close</button>
+        </div>
+      ) : (
+        <form className="lead-form" onSubmit={submit} role="dialog" aria-modal="true" aria-labelledby="lead-form-title">
+          <button type="button" className="lead-close" onClick={() => setOpen(false)} aria-label="Close">×</button>
+          <span className="eyebrow">Schedule a call</span>
+          <h2 id="lead-form-title">Let’s grow your business</h2>
+          <p>Share your details and our team will call you.</p>
+          <label>Name<input ref={firstField} name="name" autoComplete="name" required /></label>
+          <label>Phone<input name="phone" type="tel" autoComplete="tel" inputMode="tel" pattern="[0-9+\s\-]{8,15}" title="Enter a valid phone number" required /></label>
+          <label>Email<input name="email" type="email" autoComplete="email" required /></label>
+          <input type="checkbox" name="botcheck" className="lead-honeypot" tabIndex="-1" autoComplete="off" aria-hidden="true" />
+          {status === 'error' && <p className="lead-error" role="alert">Something went wrong. Please try again or email nandni@revenuegrowth.in.</p>}
+          <button type="submit" className="pill" disabled={status === 'sending'}>{status === 'sending' ? 'Sending…' : 'Schedule a call'}</button>
+        </form>
+      )}
     </div>
   )
 }
