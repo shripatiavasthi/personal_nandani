@@ -10,6 +10,7 @@ import revenueGrowthLogo from './assets/r-g-logo-400.webp'
 import nandaniPortrait from './assets/nandani.jpg'
 import shripatiPortrait from './assets/shripati-avasthi.webp'
 import transformativeWork from './assets/transformative-work.webp'
+import { posts } from './posts.js'
 
 const socialLinks = [
   { label: 'Instagram', text: 'ig', href: 'https://www.instagram.com/revenuegrowth009/' },
@@ -116,6 +117,12 @@ const articles = [
   ['https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=700&q=85', 'Why Generative Tools Belong in Your Workflow'],
 ]
 
+// Published posts come first on the homepage; placeholder cards fill the remaining slots.
+const homeInsights = [
+  ...posts.map(({ slug, cover, title, category }) => ({ href: `/blog/${slug}`, image: cover, title, category })),
+  ...articles.map(([image, title], i) => ({ href: '#contact', image, title, category: i === 2 ? 'AI & Innovation' : 'Growth Strategy' })),
+].slice(0, 3)
+
 const testimonials = [
   {
     name: 'Amit Kharbanda',
@@ -141,7 +148,7 @@ function SiteHeader({ onStartProject }) {
       <Logo />
       <button className="menu-button" aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>☰</button>
       <nav className={menuOpen ? 'open' : ''} onClick={() => setMenuOpen(false)}>
-        <a href="/#clients">Clients</a><a href="/services">Services</a><a href="/about">About</a><a href="/#insights">Blog</a>
+        <a href="/#clients">Clients</a><a href="/services">Services</a><a href="/about">About</a><a href="/blog">Blog</a>
         <button className="pill" onClick={onStartProject}>Start a project</button>
       </nav>
     </header>
@@ -152,7 +159,7 @@ function SiteFooter() {
   return (
     <footer className="footer" id="contact">
       <div className="wrap footer-grid"><div><h2>Let’s Talk</h2><a href="mailto:nandni@revenuegrowth.in">nandni@revenuegrowth.in</a><a href="tel:+919999005697">+91 99990 05697</a><div className="socials">{socialLinks.map(({ label, text, href }) => <a key={label} href={href} aria-label={label} target="_blank" rel="noopener noreferrer">{text}</a>)}</div></div>
-        <div className="footer-links"><a href="/#work">Work</a><a href="/about">About</a><a href="/#clients">Clients</a><a href="/#insights">Blog</a><a href="/services">Services</a><a href="mailto:nandni@revenuegrowth.in">Contact</a><a href="/services">Industries</a></div>
+        <div className="footer-links"><a href="/#work">Work</a><a href="/about">About</a><a href="/#clients">Clients</a><a href="/blog">Blog</a><a href="/services">Services</a><a href="mailto:nandni@revenuegrowth.in">Contact</a><a href="/services">Industries</a></div>
       </div><div className="wrap copyright">© 2026 Revenue Growth <span>Built for what’s next.</span></div>
     </footer>
   )
@@ -283,7 +290,7 @@ function App() {
 
       <section className="insights" id="insights">
         <div className="wrap"><h2 className="section-title light centered">News + Insights</h2><div className="article-grid">
-          {articles.map(([image, title], i) => <a href="#contact" key={title}><img loading="lazy" decoding="async" src={image} alt={title} /><span>{i === 2 ? 'AI & Innovation' : 'Growth Strategy'}</span><h3>{title}</h3><b>Read insight ↗</b></a>)}
+          {homeInsights.map(({ href, image, title, category }) => <a href={href} key={title}><img loading="lazy" decoding="async" src={image} alt={title} /><span>{category}</span><h3>{title}</h3><b>Read insight ↗</b></a>)}
         </div></div>
       </section>
 
@@ -450,6 +457,95 @@ function ServiceDetailPage({ service }) {
   )
 }
 
+const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+// Formatted by hand so the prerendered HTML and the browser always agree.
+const formatPostDate = (date) => {
+  const [year, month, day] = date.split('-').map(Number)
+  return `${day} ${monthNames[month - 1]} ${year}`
+}
+
+// Renders **bold** spans inside post text.
+function RichText({ text }) {
+  return text.split(/\*\*(.+?)\*\*/).map((part, i) => (i % 2 ? <strong key={i}>{part}</strong> : part))
+}
+
+function PostBlock({ block }) {
+  const [type, ...content] = block
+  if (type === 'h2') return <h2>{content[0]}</h2>
+  if (type === 'p') return <p><RichText text={content[0]} /></p>
+  if (type === 'ul' || type === 'ol') {
+    const List = type
+    return <List>{content[0].map((item) => <li key={item}><RichText text={item} /></li>)}</List>
+  }
+  if (type === 'img') return <figure><img loading="lazy" decoding="async" src={content[0]} alt={content[1]} width="1200" height="675" /></figure>
+  if (type === 'table') {
+    const [head, rows] = content
+    return (
+      <div className="post-table"><table>
+        <thead><tr>{head.map((cell) => <th key={cell}>{cell}</th>)}</tr></thead>
+        <tbody>{rows.map((row) => <tr key={row[0]}>{row.map((cell) => <td key={cell}>{cell}</td>)}</tr>)}</tbody>
+      </table></div>
+    )
+  }
+  return null
+}
+
+function BlogPage() {
+  const goToContact = () => { window.location.href = '/#contact' }
+
+  return (
+    <main id="top" className="blog-page">
+      <SiteHeader onStartProject={goToContact} />
+      <section className="blog-hero">
+        <div className="wrap">
+          <span className="eyebrow">News + Insights</span>
+          <h1>Revenue Growth Blog</h1>
+          <p>Practical guides on B2B growth, search, AI visibility and marketing automation.</p>
+        </div>
+      </section>
+      <section className="wrap blog-list">
+        {posts.map(({ slug, cover, coverAlt, title, description, category, author, date }) => (
+          <a href={`/blog/${slug}`} key={slug}>
+            <img src={cover} alt={coverAlt} width="1200" height="675" />
+            <div>
+              <span>{category}</span>
+              <h2>{title}</h2>
+              <p>{description}</p>
+              <small>{author} · <time dateTime={date}>{formatPostDate(date)}</time></small>
+            </div>
+          </a>
+        ))}
+      </section>
+      <SiteFooter />
+    </main>
+  )
+}
+
+function PostPage({ post }) {
+  const goToContact = () => { window.location.href = '/#contact' }
+
+  return (
+    <main id="top" className="post-page">
+      <SiteHeader onStartProject={goToContact} />
+      <article className="post">
+        <header className="post-header">
+          <a className="back-to-services" href="/blog">← All articles</a>
+          <span className="post-category">{post.category}</span>
+          <h1>{post.title}</h1>
+          <p className="post-meta">By <strong>{post.author}</strong> · <time dateTime={post.date}>{formatPostDate(post.date)}</time></p>
+        </header>
+        <img className="post-cover" src={post.cover} alt={post.coverAlt} width="1200" height="675" fetchPriority="high" />
+        <div className="post-body">
+          {post.body.map((block, i) => <PostBlock block={block} key={i} />)}
+          <a className="pill post-cta" href="/#contact">Schedule a call</a>
+        </div>
+      </article>
+      <SiteFooter />
+    </main>
+  )
+}
+
 function ComingSoonPage() {
   return (
     <main className="coming-soon-page">
@@ -552,6 +648,20 @@ const seoByPath = {
     ogDescription: 'Ready for your next stage of growth? Schedule a call with our team.',
     image: '/social-preview.jpg',
   },
+  '/blog': {
+    title: 'Blog: B2B Growth, SEO & AI Visibility Insights | Revenue Growth',
+    description: 'Practical guides from Revenue Growth on B2B growth marketing, SEO, AI visibility in ChatGPT and Google AI Overviews, and marketing automation.',
+    ogTitle: 'Revenue Growth Blog',
+    ogDescription: 'Practical guides on B2B growth, search, AI visibility and marketing automation.',
+    image: posts[0]?.cover ?? '/social-preview.jpg',
+  },
+  ...Object.fromEntries(posts.map((post) => [`/blog/${post.slug}`, {
+    title: post.seoTitle,
+    description: post.description,
+    ogTitle: post.title,
+    ogDescription: post.description,
+    image: post.cover,
+  }])),
 }
 
 function upsertMeta(selector, attributes) {
@@ -608,12 +718,16 @@ function Seo({ path }) {
   return null
 }
 
-const breadcrumbNames = { '/about': 'About', '/services': 'Services', '/clients': 'Clients', '/contact': 'Contact' }
+const breadcrumbNames = { '/about': 'About', '/services': 'Services', '/clients': 'Clients', '/contact': 'Contact', '/blog': 'Blog' }
+
+const postForPath = (path) => posts.find(({ slug }) => path === `/blog/${slug}`)
 
 function breadcrumbsFor(path) {
   const crumbs = [['Home', '/']]
   const service = services.find(({ slug }) => path === `/services/${slug}`)
+  const post = postForPath(path)
   if (service) crumbs.push(['Services', '/services'], [service.name, path])
+  else if (post) crumbs.push(['Blog', '/blog'], [post.title, path])
   else if (breadcrumbNames[path]) crumbs.push([breadcrumbNames[path], path])
   return crumbs
 }
@@ -694,6 +808,23 @@ function structuredDataFor(path) {
     })
   }
 
+  const post = postForPath(path)
+  if (post) {
+    graph.push({
+      '@type': 'BlogPosting',
+      '@id': `${pageUrl}#article`,
+      headline: post.title,
+      description: post.description,
+      image: new URL(post.cover, SITE_URL).href,
+      datePublished: post.date,
+      dateModified: post.date,
+      author: { '@type': 'Person', name: post.author },
+      publisher: { '@id': `${SITE_URL}/#organization` },
+      mainEntityOfPage: pageUrl,
+      articleSection: post.category,
+    })
+  }
+
   if (path === '/services') {
     graph.push({
       '@type': 'ItemList',
@@ -747,6 +878,8 @@ function Root({ path: pathProp }) {
   else if (path === '/about') page = <AboutPage />
   else if (path === '/services') page = <ServicesPage />
   else if (service) page = <ServiceDetailPage service={service} />
+  else if (path === '/blog') page = <BlogPage />
+  else if (postForPath(path)) page = <PostPage post={postForPath(path)} />
   else page = <ComingSoonPage />
 
   return <><Seo path={path} />{page}</>
