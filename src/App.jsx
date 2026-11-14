@@ -111,17 +111,56 @@ function ServiceCards() {
   )
 }
 
-const articles = [
-  ['https://images.unsplash.com/photo-1573164574511-73c773193279?auto=format&fit=crop&w=700&q=85', 'Essential Guide to Effective Pay-Per-Click Campaigns'],
-  ['https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=700&q=85', 'How to Build a Digital Strategy That Converts'],
-  ['https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=700&q=85', 'Why Generative Tools Belong in Your Workflow'],
-]
+const homeInsights = posts.slice(0, 3).map(({ slug, cover, title, category }) => ({ href: `/blog/${slug}`, image: cover, title, category }))
 
-// Published posts come first on the homepage; placeholder cards fill the remaining slots.
-const homeInsights = [
-  ...posts.map(({ slug, cover, title, category }) => ({ href: `/blog/${slug}`, image: cover, title, category })),
-  ...articles.map(([image, title], i) => ({ href: '#contact', image, title, category: i === 2 ? 'AI & Innovation' : 'Growth Strategy' })),
-].slice(0, 3)
+const WHATSAPP_NUMBER = '919999005697'
+
+// Every "Schedule a call" / "Start a project" button opens the lead form rendered by <Root>.
+const openLeadForm = () => window.dispatchEvent(new Event('open-lead-form'))
+
+function LeadForm() {
+  const [open, setOpen] = useState(false)
+  const firstField = useRef(null)
+
+  useEffect(() => {
+    const show = () => setOpen(true)
+    window.addEventListener('open-lead-form', show)
+    return () => window.removeEventListener('open-lead-form', show)
+  }, [])
+
+  useEffect(() => {
+    if (!open) return
+    firstField.current?.focus()
+    const closeOnEscape = (event) => { if (event.key === 'Escape') setOpen(false) }
+    window.addEventListener('keydown', closeOnEscape)
+    return () => window.removeEventListener('keydown', closeOnEscape)
+  }, [open])
+
+  if (!open) return null
+
+  const submit = (event) => {
+    event.preventDefault()
+    const { name, phone, email } = Object.fromEntries(new FormData(event.currentTarget))
+    const message = `Hi Revenue Growth, I'd like to schedule a call.\n\nName: ${name}\nPhone: ${phone}\nEmail: ${email}`
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank', 'noopener')
+    setOpen(false)
+  }
+
+  return (
+    <div className="lead-overlay" onClick={(event) => { if (event.target === event.currentTarget) setOpen(false) }}>
+      <form className="lead-form" onSubmit={submit} role="dialog" aria-modal="true" aria-labelledby="lead-form-title">
+        <button type="button" className="lead-close" onClick={() => setOpen(false)} aria-label="Close">×</button>
+        <span className="eyebrow">Schedule a call</span>
+        <h2 id="lead-form-title">Let’s grow your business</h2>
+        <p>Share your details and we’ll get back to you on WhatsApp.</p>
+        <label>Name<input ref={firstField} name="name" autoComplete="name" required /></label>
+        <label>Phone<input name="phone" type="tel" autoComplete="tel" inputMode="tel" pattern="[0-9+\s\-]{8,15}" title="Enter a valid phone number" required /></label>
+        <label>Email<input name="email" type="email" autoComplete="email" required /></label>
+        <button type="submit" className="pill">Send on WhatsApp</button>
+      </form>
+    </div>
+  )
+}
 
 const testimonials = [
   {
@@ -237,13 +276,12 @@ function MakeItHappen({ onScheduleCall }) {
 }
 
 function App() {
-  const scrollToContact = () => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })
 
   return (
     <main id="top">
-      <SiteHeader onStartProject={scrollToContact} />
+      <SiteHeader onStartProject={openLeadForm} />
 
-      <HeroSection onScheduleCall={scrollToContact} />
+      <HeroSection onScheduleCall={openLeadForm} />
 
       <section className="about wrap" id="about">
         <div className="about-image">
@@ -286,7 +324,7 @@ function App() {
         </div>
       </section>
 
-      <MakeItHappen onScheduleCall={scrollToContact} />
+      <MakeItHappen onScheduleCall={openLeadForm} />
 
       <section className="insights" id="insights">
         <div className="wrap"><h2 className="section-title light centered">News + Insights</h2><div className="article-grid">
@@ -313,13 +351,12 @@ const studioImages = [
 ]
 
 function AboutPage() {
-  const goToContact = () => { window.location.href = '/#contact' }
 
   return (
     <main id="top" className="about-page">
-      <SiteHeader onStartProject={goToContact} />
+      <SiteHeader onStartProject={openLeadForm} />
 
-      <HeroSection onScheduleCall={goToContact} about />
+      <HeroSection onScheduleCall={openLeadForm} about />
 
       <section className="team-section">
         <div className="wrap">
@@ -365,7 +402,7 @@ function AboutPage() {
         </div>
       </section>
 
-      <MakeItHappen onScheduleCall={goToContact} />
+      <MakeItHappen onScheduleCall={openLeadForm} />
 
       <section className="studio wrap"><div className="studio-gallery">{studioImages.map((image, index) => <a key={image} href={image} target="_blank" rel="noreferrer" aria-label={`View workspace image ${index + 1}`}><img loading="lazy" decoding="async" src={image} alt={`Revenue Growth team workspace ${index + 1}`} /></a>)}</div></section>
 
@@ -375,11 +412,10 @@ function AboutPage() {
 }
 
 function ServicesPage() {
-  const goToContact = () => { window.location.href = '/#contact' }
 
   return (
     <main id="top" className="services-page">
-      <SiteHeader onStartProject={goToContact} />
+      <SiteHeader onStartProject={openLeadForm} />
 
       <section className="hero-section about-page-hero services-page-hero">
         <picture className="hero-banner"><img src={aboutBanner} alt="" aria-hidden="true" /></picture>
@@ -395,7 +431,7 @@ function ServicesPage() {
           <p className="services-intro">Our digital marketing services combine strategy, technology, and performance-driven execution to strengthen your online presence and create meaningful business results.</p>
           <ServiceCards />
         </section>
-        <MakeItHappen onScheduleCall={goToContact} />
+        <MakeItHappen onScheduleCall={openLeadForm} />
       </div>
 
       <SiteFooter />
@@ -404,11 +440,10 @@ function ServicesPage() {
 }
 
 function ServiceDetailPage({ service }) {
-  const goToContact = () => { window.location.href = '/#contact' }
 
   return (
     <main id="top" className="service-detail-page">
-      <SiteHeader onStartProject={goToContact} />
+      <SiteHeader onStartProject={openLeadForm} />
 
       <section className="service-detail-hero">
         <div className="service-detail-hero-shape" aria-hidden="true" />
@@ -451,7 +486,7 @@ function ServiceDetailPage({ service }) {
         </div>
       </section>
 
-      <MakeItHappen onScheduleCall={goToContact} />
+      <MakeItHappen onScheduleCall={openLeadForm} />
       <SiteFooter />
     </main>
   )
@@ -492,11 +527,10 @@ function PostBlock({ block }) {
 }
 
 function BlogPage() {
-  const goToContact = () => { window.location.href = '/#contact' }
 
   return (
     <main id="top" className="blog-page">
-      <SiteHeader onStartProject={goToContact} />
+      <SiteHeader onStartProject={openLeadForm} />
       <section className="blog-hero">
         <div className="wrap">
           <span className="eyebrow">News + Insights</span>
@@ -523,11 +557,10 @@ function BlogPage() {
 }
 
 function PostPage({ post }) {
-  const goToContact = () => { window.location.href = '/#contact' }
 
   return (
     <main id="top" className="post-page">
-      <SiteHeader onStartProject={goToContact} />
+      <SiteHeader onStartProject={openLeadForm} />
       <article className="post">
         <header className="post-header">
           <a className="back-to-services" href="/blog">← All articles</a>
@@ -538,7 +571,7 @@ function PostPage({ post }) {
         <img className="post-cover" src={post.cover} alt={post.coverAlt} width="1200" height="675" fetchPriority="high" />
         <div className="post-body">
           {post.body.map((block, i) => <PostBlock block={block} key={i} />)}
-          <a className="pill post-cta" href="/#contact">Schedule a call</a>
+          <button className="pill post-cta" onClick={openLeadForm}>Schedule a call</button>
         </div>
       </article>
       <SiteFooter />
@@ -882,7 +915,7 @@ function Root({ path: pathProp }) {
   else if (postForPath(path)) page = <PostPage post={postForPath(path)} />
   else page = <ComingSoonPage />
 
-  return <><Seo path={path} />{page}</>
+  return <><Seo path={path} />{page}<LeadForm /></>
 }
 
 export default Root
