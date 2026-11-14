@@ -7,6 +7,11 @@
 - [Home](https://www.revenuegrowth.in/): Overview of Revenue Growth, our work, clients and insights
 - [About](https://www.revenuegrowth.in/about): Who we are, how we work and the team
 - [Services](https://www.revenuegrowth.in/services): All services offered by Revenue Growth
+- [Blog](https://www.revenuegrowth.in/blog): Guides on B2B growth, SEO and AI visibility
+
+## Articles
+
+- [How to Get Your Brand Seen in ChatGPT and Google AI Overviews](https://www.revenuegrowth.in/blog/get-brand-seen-in-chatgpt-google-ai-overviews): A B2B guide to AI visibility for 2026
 
 ## Services
 
