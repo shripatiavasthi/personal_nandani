@@ -11,6 +11,7 @@ import nandaniPortrait from './assets/nandani.jpg'
 import shripatiPortrait from './assets/shripati-avasthi.webp'
 import transformativeWork from './assets/transformative-work.webp'
 import { posts } from './posts.js'
+import { homeFaqs, serviceFaqs } from './faqs.js'
 
 const socialLinks = [
   { label: 'Instagram', text: 'ig', href: 'https://www.instagram.com/revenuegrowth009/' },
@@ -124,7 +125,23 @@ function ServiceCards() {
   )
 }
 
-const homeInsights = posts.slice(0, 3).map(({ slug, cover, title, category }) => ({ href: `/blog/${slug}`, image: cover, title, category }))
+function FaqList({ faqs }) {
+  if (!faqs?.length) return null
+  return (
+    <div className="faq">
+      <span className="eyebrow">FAQ</span>
+      <h2>Frequently Asked Questions</h2>
+      {faqs.map(([question, answer]) => (
+        <details key={question}>
+          <summary>{question}</summary>
+          <p>{answer}</p>
+        </details>
+      ))}
+    </div>
+  )
+}
+
+const homeInsights =posts.slice(0, 3).map(({ slug, cover, title, category }) => ({ href: `/blog/${slug}`, image: cover, title, category }))
 
 // Web3Forms emails each lead to the inbox this key was created for. The key is public by design.
 const WEB3FORMS_ACCESS_KEY = '106ddd05-abdd-4cf6-ad52-270df67f5c96'
@@ -366,6 +383,8 @@ function App() {
         </div>
       </section>
 
+      <section className="wrap home-faq"><FaqList faqs={homeFaqs} /></section>
+
       <MakeItHappen onScheduleCall={openLeadForm} />
 
       <section className="insights" id="insights">
@@ -518,6 +537,8 @@ function ServiceDetailPage({ service }) {
             <p>{service.result}</p>
           </div>
 
+          <FaqList faqs={serviceFaqs[service.slug]} />
+
           <nav className="service-pagination" aria-label="Other services">
             {services.map(({ number, slug, name }) => (
               <a className={slug === service.slug ? 'active' : ''} href={`/services/${slug}`} key={slug} aria-current={slug === service.slug ? 'page' : undefined}>
@@ -644,6 +665,12 @@ function ComingSoonPage() {
 }
 
 const SITE_URL = 'https://www.revenuegrowth.in'
+
+// One consistent description of the business, reused wherever machines read who we are.
+const ENTITY_DESCRIPTION = 'Revenue Growth is a B2B growth marketing agency in Faridabad, Delhi NCR, helping startups and enterprises grow through SEO, AI visibility, performance marketing, automation and influencer marketing.'
+
+// Add the founder's LinkedIn or other profile URLs to sameAs so search and AI engines can link them.
+const FOUNDER = { name: 'Nandni Verma', sameAs: [] }
 
 const seoByPath = {
   '/': {
@@ -821,6 +848,8 @@ function structuredDataFor(path) {
       '@type': ['Organization', 'ProfessionalService'],
       '@id': `${SITE_URL}/#organization`,
       name: 'Revenue Growth',
+      description: ENTITY_DESCRIPTION,
+      founder: { '@id': `${SITE_URL}/#founder` },
       sameAs: socialLinks.map(({ href }) => href),
       url: `${SITE_URL}/`,
       logo: `${SITE_URL}/favicon.png`,
@@ -856,7 +885,29 @@ function structuredDataFor(path) {
       name: 'Revenue Growth',
       publisher: { '@id': `${SITE_URL}/#organization` },
     },
+    {
+      '@type': 'Person',
+      '@id': `${SITE_URL}/#founder`,
+      name: FOUNDER.name,
+      alternateName: 'Nandani',
+      jobTitle: 'Founder & Company Director',
+      worksFor: { '@id': `${SITE_URL}/#organization` },
+      email: 'nandni@revenuegrowth.in',
+      url: `${SITE_URL}/about`,
+      image: new URL(nandaniPortrait, SITE_URL).href,
+      knowsAbout: ['B2B growth marketing', 'Digital strategy', 'SEO', 'AI visibility', 'Generative Engine Optimization', 'Marketing automation', 'Founder branding', 'Influencer marketing'],
+      ...(FOUNDER.sameAs.length ? { sameAs: FOUNDER.sameAs } : {}),
+    },
   ]
+
+  const faqs = path === '/' ? homeFaqs : serviceFaqs[path.replace('/services/', '')]
+  if (faqs && (path === '/' || path.startsWith('/services/'))) {
+    graph.push({
+      '@type': 'FAQPage',
+      '@id': `${pageUrl}#faq`,
+      mainEntity: faqs.map(([question, answer]) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })),
+    })
+  }
 
   const crumbs = breadcrumbsFor(path)
   if (crumbs.length > 1) {
@@ -900,7 +951,7 @@ function structuredDataFor(path) {
       image: new URL(post.cover, SITE_URL).href,
       datePublished: post.date,
       dateModified: post.date,
-      author: { '@type': 'Person', name: post.author },
+      author: post.author === FOUNDER.name ? { '@id': `${SITE_URL}/#founder` } : { '@type': 'Person', name: post.author },
       publisher: { '@id': `${SITE_URL}/#organization` },
       mainEntityOfPage: pageUrl,
       articleSection: post.category,
