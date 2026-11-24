@@ -97,6 +97,19 @@ const services = [
     offerings: ['Amazon Growth Strategy', 'Marketplace SEO', 'Product Listing Optimization', 'Amazon Advertising', 'Performance Analytics', 'Marketplace Account Management', 'Product Launch Strategy', 'Sales Optimization'],
     result: 'Higher product visibility, increased marketplace sales, and sustainable revenue growth.',
   },
+  {
+    number: '07',
+    slug: 'influencer-marketing',
+    name: 'Influencer Marketing',
+    summary: 'Reach the right audience through trusted creators who drive real engagement and sales.',
+    headline: 'Let Trusted Voices Grow Your Brand',
+    description: [
+      "Today's customers trust creators more than ads. The right influencer can introduce your brand to an engaged audience that is ready to listen.",
+      'We connect your brand with the right creators, manage campaigns end to end, and measure every collaboration so your influencer spend drives real business results.',
+    ],
+    offerings: ['Influencer Discovery', 'Creator Partnerships', 'Instagram & YouTube Campaigns', 'LinkedIn Influencer Marketing', 'Micro-Influencer Campaigns', 'UGC Content Creation', 'Campaign Management', 'Performance Tracking & Reporting'],
+    result: 'Wider brand reach, stronger audience trust, and more qualified leads and sales.',
+  },
 ]
 
 function ServiceCards() {
@@ -694,6 +707,13 @@ const seoByPath = {
     description: 'Improve product visibility, conversions, and sales across leading digital marketplaces with our tailored marketplace growth strategies.',
     ogTitle: 'Marketplace Growth & Optimization Services',
     ogDescription: 'Improve product visibility, conversions, and sales across leading digital marketplaces.',
+    image: aboutBanner,
+  },
+  '/services/influencer-marketing': {
+    title: 'Influencer Marketing Agency | Creator Campaigns | Revenue Growth',
+    description: 'Grow your brand with influencer marketing that delivers results. Creator discovery, Instagram, YouTube & LinkedIn campaigns, and ROI tracking by Revenue Growth.',
+    ogTitle: 'Influencer Marketing Services',
+    ogDescription: 'Reach the right audience through trusted creators who drive real engagement and sales.',
     image: aboutBanner,
   },
   '/clients': {
